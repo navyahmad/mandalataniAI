@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Penyuluh Kecamatan | Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="nav-wrapper">
+          <div class="logo">
+            <span class="logo-icon">🌾</span>
+            <span class="logo-text">Mandala Tani AI</span>
+          </div>
+          <nav class="nav">
+            <a href="../index.html">Home</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../peta.html">Peta</a>
+            <a href="dashboard.html" class="active">Penyuluh Kecamatan</a>
+            <a href="../penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-hero role-hero">
+      <div class="container">
+        <p class="hero-pill">Penyuluh Kecamatan</p>
+        <h1>Monitoring Desa & Data Panen</h1>
+        <p>Ringkasan data tanam, status desa, serta notifikasi OPT dan banjir untuk koordinasi cepat.</p>
+        <div class="role-subnav">
+          <a href="dashboard.html" class="active">Dashboard</a>
+          <a href="input-panen.html">Input Data Panen</a>
+          <a href="monitoring.html">Monitoring Desa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="summary-grid" id="ringkasanCards"></div>
+
+        <div class="dashboard-grid">
+          <div class="card chart-card">
+            <div class="card-header">
+              <div>
+                <h3>Tren Panen per Komoditas</h3>
+                <p>4 bulan terakhir</p>
+              </div>
+              <span class="badge success">Update harian</span>
+            </div>
+            <canvas id="trendChart" height="280"></canvas>
+          </div>
+
+          <div class="card table-card">
+            <div class="card-header">
+              <div>
+                <h3>Status Data Desa</h3>
+                <p>Prioritas verifikasi</p>
+              </div>
+              <a href="monitoring.html" class="text-link">Lihat semua</a>
+            </div>
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Desa</th>
+                    <th>Komoditas</th>
+                    <th>Luas (Ha)</th>
+                    <th>Hasil (Ton)</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="statusDesaTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card notification-card">
+          <div class="card-header">
+            <div>
+              <h3>Notifikasi Potensi OPT / Banjir</h3>
+              <p>Rekomendasi tindak lanjut lapangan</p>
+            </div>
+          </div>
+          <div id="notifList" class="notif-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Mandala Tani AI</h3>
+            <p>Kolaborasi data pertanian untuk penyuluh kecamatan di Kabupaten Sidoarjo.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Tautan</h4>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../peta.html">Peta</a></li>
+              <li><a href="../penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Kontak</h4>
+            <p>Dinas Pertanian Kabupaten Sidoarjo</p>
+            <p>Email: info@mandalatani.go.id</p>
+            <p>Telp: (031) 1234567</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Mandala Tani AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/penyuluh.js"></script>
+  </body>
+</html>

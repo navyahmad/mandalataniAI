@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Air & Pupuk - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .calculator-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+        .calc-input-group {
+            margin-bottom: 1.5rem;
+        }
+        .calc-input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        .calc-input-group input, .calc-input-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .result-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .result-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .result-item p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        .breakdown-table {
+            margin-top: 2rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .breakdown-table th, .breakdown-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .breakdown-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+             <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item active"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">💧 Prediksi Air & Pupuk</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="info-box">
+                    <div class="info-icon">🧮</div>
+                    <div class="info-content">
+                        <h3>Kalkulator Kebutuhan Air & Pupuk</h3>
+                        <p>Hitung kebutuhan air, pupuk Urea, dan NPK secara akurat berdasarkan luas lahan, jenis tanaman, dan kondisi musim untuk optimalisasi efisiensi pertanian.</p>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <h2 style="margin-bottom: 1.5rem;">🔢 Input Data Lahan</h2>
+                    
+                    <div class="calc-input-group">
+                        <label for="jenisTanaman">🌱 Jenis Tanaman</label>
+                        <select id="jenisTanaman" onchange="updateFormula()">
+                            <option value="padi">Padi</option>
+                            <option value="jagung">Jagung</option>
+                            <option value="kedelai">Kedelai</option>
+                            <option value="tebu">Tebu</option>
+                            <option value="kacang_hijau">Kacang Hijau</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-input-group">
+                        <label for="luasLahan">📏 Luas Lahan (Hektar)</label>
+                        <input type="number" id="luasLahan" step="0.1" min="0.1" value="1" placeholder="Masukkan luas lahan">
+                    </div>
+
+                    <div class="calc-input-group">
+                        <label for="musim">🌤️ Musim</label>
+                        <select id="musim">
+                            <option value="hujan">Musim Hujan</option>
+                            <option value="kemarau">Musim Kemarau</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-input-group">
+                        <label for="sistemIrigasi">💦 Sistem Irigasi</label>
+                        <select id="sistemIrigasi">
+                            <option value="teknis">Irigasi Teknis</option>
+                            <option value="semi-teknis">Irigasi Semi Teknis</option>
+                            <option value="sederhana">Irigasi Sederhana</option>
+                            <option value="tadah-hujan">Tadah Hujan</option>
+                        </select>
+                    </div>
+
+                    <div class="calc-input-group">
+                        <label for="kondisiTanah">🌍 Kondisi Tanah</label>
+                        <select id="kondisiTanah">
+                            <option value="subur">Subur</option>
+                            <option value="sedang">Sedang</option>
+                            <option value="kurang">Kurang Subur</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="hitungKebutuhan()" style="width: 100%; padding: 1rem; font-size: 1.1rem; margin-top: 1rem;">
+                        🚀 Hitung Kebutuhan
+                    </button>
+                </div>
+
+                <div id="hasilPrediksi" style="display: none;">
+                    <div class="section-card">
+                        <h2>📊 Hasil Prediksi Kebutuhan</h2>
+                        <div class="result-grid" id="resultGrid"></div>
+
+                        <div id="detailBreakdown"></div>
+
+                        <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px;">
+                            <h3 style="margin-bottom: 1rem;">📝 Formula Perhitungan</h3>
+                            <div id="formulaInfo"></div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                            <button class="btn btn-primary" onclick="downloadLaporan()">📥 Download Laporan PDF</button>
+                            <button class="btn btn-outline" onclick="exportExcel()">📊 Export Excel</button>
+                            <button class="btn btn-outline" onclick="printResult()">🖨️ Print</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>💡 Panduan Penggunaan</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1rem;">
+                        <div style="padding: 1rem; background: #e3f2fd; border-radius: 8px;">
+                            <h4 style="color: #1976d2; margin-bottom: 0.5rem;">💧 Kebutuhan Air</h4>
+                            <p style="color: #555; font-size: 0.9rem;">Dihitung berdasarkan evapotranspirasi tanaman, sistem irigasi, dan musim tanam.</p>
+                        </div>
+                        <div style="padding: 1rem; background: #fff3e0; border-radius: 8px;">
+                            <h4 style="color: #f57c00; margin-bottom: 0.5rem;">🌱 Pupuk Urea</h4>
+                            <p style="color: #555; font-size: 0.9rem;">Kebutuhan nitrogen (N) untuk pertumbuhan vegetatif optimal tanaman.</p>
+                        </div>
+                        <div style="padding: 1rem; background: #e8f5e9; border-radius: 8px;">
+                            <h4 style="color: #388e3c; margin-bottom: 0.5rem;">🧪 Pupuk NPK</h4>
+                            <p style="color: #555; font-size: 0.9rem;">Kombinasi Nitrogen, Fosfor, dan Kalium untuk nutrisi lengkap tanaman.</p>
+                        </div>
+                        <div style="padding: 1rem; background: #f3e5f5; border-radius: 8px;">
+                            <h4 style="color: #7b1fa2; margin-bottom: 0.5rem;">⚖️ Efisiensi</h4>
+                            <p style="color: #555; font-size: 0.9rem;">Sistem memperhitungkan efisiensi aplikasi dan kondisi lahan untuk hasil akurat.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/prediksi-air-pupuk.js"></script>
+</body>
+</html>

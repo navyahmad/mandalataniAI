@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+           <div class="sidebar-header">
+    <img src="../assets/img/logo.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item active">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+                <a href="rekom-tanam.html" class="nav-item">
+                    <span class="nav-icon">🌱</span>
+                    <span class="nav-text">Rekomendasi Tanam</span>
+                </a>
+                <a href="simulasi-tanam.html" class="nav-item">
+                    <span class="nav-icon">🔬</span>
+                    <span class="nav-text">Simulasi Tanam</span>
+                </a>
+                <a href="prediksi-air-pupuk.html" class="nav-item">
+                    <span class="nav-icon">💧</span>
+                    <span class="nav-text">Prediksi Air & Pupuk</span>
+                </a>
+                <!-- <a href="stok-pupuk.html" class="nav-item">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">Manajemen Stok Pupuk</span>
+                </a> -->
+                <a href="permintaan-pasar.html" class="nav-item">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Prediksi Pasar</span>
+                </a>
+                <a href="prediksi-opt.html" class="nav-item">
+                    <span class="nav-icon">🐛</span>
+                    <span class="nav-text">Prediksi OPT</span>
+                </a>
+                <a href="prediksi-banjir.html" class="nav-item">
+                    <span class="nav-icon">🌊</span>
+                    <span class="nav-text">Prediksi Banjir</span>
+                </a>
+                <a href="simulasi-hasil-panen.html" class="nav-item">
+                    <span class="nav-icon">🌾</span>
+                    <span class="nav-text">Simulasi Panen</span>
+                </a>
+                <a href="monitoring-panen.html" class="nav-item">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Monitoring Panen</span>
+                </a>
+                <a href="kelola-user.html" class="nav-item">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Kelola User</span>
+                </a>
+                <a href="blog.html" class="nav-item">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Kelola Blog</span>
+                </a>
+                
+                <div class="nav-divider"></div>
+                
+                <a href="../index.html" class="nav-item">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Lihat Website</span>
+                </a>
+                <a href="../index.html" class="nav-item">
+                    <span class="nav-icon">🚪</span>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">Dashboard Admin</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon" title="Notifikasi">
+                        🔔
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="btn-icon" title="Pengaturan">⚙️</button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card green">
+                        <div class="stat-icon">🌾</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalPanen">12,450</div>
+                            <div class="stat-label">Total Panen (Ton)</div>
+                            <div class="stat-change positive">+8% dari bulan lalu</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card blue">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="stokPupuk">8,750</div>
+                            <div class="stat-label">Stok Pupuk (Ton)</div>
+                            <div class="stat-change negative">-5% dari target</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card yellow">
+                        <div class="stat-icon">🏘️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalDesa">322</div>
+                            <div class="stat-label">Desa Terdaftar</div>
+                            <div class="stat-change">18 Kecamatan</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card red">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="alertCount">5</div>
+                            <div class="stat-label">Alert Penting</div>
+                            <div class="stat-change">Perlu tindakan</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Statistik Panen 6 Bulan Terakhir</h3>
+                            <select id="jenisKomoditas" class="select-filter">
+                                <option value="all">Semua Komoditas</option>
+                                <option value="padi">Padi</option>
+                                <option value="jagung">Jagung</option>
+                                <option value="kedelai">Kedelai</option>
+                                <option value="tebu">Tebu</option>
+                            </select>
+                        </div>
+                        <canvas id="chartPanen" class="chart-canvas"></canvas>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="card-header">
+                            <h3>Distribusi Tanaman</h3>
+                        </div>
+                        <canvas id="chartDistribusi" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Prediksi AI Section -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>🤖 Prediksi & Rekomendasi AI</h2>
+                        <button class="btn btn-primary" onclick="refreshPrediksi()">Refresh Prediksi</button>
+                    </div>
+                    <div class="prediksi-grid">
+                        <div class="prediksi-card success">
+                            <div class="prediksi-icon">✅</div>
+                            <div class="prediksi-content">
+                                <h4>Rekomendasi Tanam</h4>
+                                <p>Kondisi optimal untuk tanam padi di 8 kecamatan. Prediksi hasil: <strong>+15%</strong></p>
+                                <a href="rekom-tanam.html" class="link-detail">Lihat Detail →</a>
+                            </div>
+                        </div>
+
+                        <div class="prediksi-card warning">
+                            <div class="prediksi-icon">⚠️</div>
+                            <div class="prediksi-content">
+                                <h4>Prediksi Banjir</h4>
+                                <p>Potensi banjir tinggi di Tanggulangin dan Porong. Curah hujan: <strong>350mm</strong></p>
+                                <a href="prediksi-banjir.html" class="link-detail">Lihat Detail →</a>
+                            </div>
+                        </div>
+
+                        <div class="prediksi-card info">
+                            <div class="prediksi-icon">💧</div>
+                            <div class="prediksi-content">
+                                <h4>Efisiensi Pupuk</h4>
+                                <p>Efisiensi pupuk minggu ini: <strong>87%</strong>. Hemat 2.5 ton dari prediksi</p>
+                                <a href="prediksi-air-pupuk.html" class="link-detail">Lihat Detail →</a>
+                            </div>
+                        </div>
+
+                        <div class="prediksi-card danger">
+                            <div class="prediksi-icon">🐛</div>
+                            <div class="prediksi-content">
+                                <h4>Deteksi OPT</h4>
+                                <p>Risiko tinggi wereng batang coklat di 3 kecamatan. Perlu tindakan segera</p>
+                                <a href="prediksi-opt.html" class="link-detail">Lihat Detail →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monitoring Panen per Kecamatan -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>📊 Monitoring Panen per Kecamatan</h2>
+                        <div class="header-actions">
+                            <input type="text" id="searchKecamatan" placeholder="Cari kecamatan..." class="search-input">
+                            <button class="btn btn-outline" onclick="exportData()">📥 Export Data</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="tablePanen">
+                            <thead>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <th>Padi (Ton)</th>
+                                    <th>Jagung (Ton)</th>
+                                    <th>Kedelai (Ton)</th>
+                                    <th>Tebu (Ton)</th>
+                                    <th>Total (Ton)</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablePanenBody">
+                                <!-- Data will be loaded by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="actions-grid">
+                        <button class="action-btn" onclick="tambahDataPanen()">
+                            <span class="action-icon">➕</span>
+                            <span class="action-text">Tambah Data Panen</span>
+                        </button>
+                        <button class="action-btn" onclick="buatLaporan()">
+                            <span class="action-icon">📄</span>
+                            <span class="action-text">Buat Laporan</span>
+                        </button>
+                        <button class="action-btn" onclick="kelolaStok()">
+                            <span class="action-icon">📦</span>
+                            <span class="action-text">Kelola Stok Pupuk</span>
+                        </button>
+                        <button class="action-btn" onclick="kirimNotifikasi()">
+                            <span class="action-icon">📢</span>
+                            <span class="action-text">Kirim Notifikasi</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin-dashboard.js"></script>
+</body>
+</html>

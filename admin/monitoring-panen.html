@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Panen - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item active"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">📋 Monitoring Panen per Desa</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="stats-grid">
+                    <div class="stat-card green">
+                        <div class="stat-icon">🌾</div>
+                        <div class="stat-info">
+                            <div class="stat-value">12,450</div>
+                            <div class="stat-label">Total Panen (Ton)</div>
+                            <div class="stat-change positive">+8% dari target</div>
+                        </div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">🏘️</div>
+                        <div class="stat-info">
+                            <div class="stat-value">322</div>
+                            <div class="stat-label">Desa Terpantau</div>
+                            <div class="stat-change">18 Kecamatan</div>
+                        </div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <div class="stat-value">Nov 2024</div>
+                            <div class="stat-label">Periode Aktif</div>
+                            <div class="stat-change">Musim Panen</div>
+                        </div>
+                    </div>
+                    <div class="stat-card red">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-info">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Desa Perlu Perhatian</div>
+                            <div class="stat-change">Di bawah target</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📊 Trend Panen 12 Bulan</h2>
+                    <canvas id="chartTrend" style="max-height: 350px;"></canvas>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>🗂️ Data Panen per Desa</h2>
+                        <div class="header-actions">
+                            <select id="filterKecamatan" class="select-filter" onchange="filterData()">
+                                <option value="all">Semua Kecamatan</option>
+                                <option value="Candi">Candi</option>
+                                <option value="Sidoarjo">Sidoarjo</option>
+                                <option value="Porong">Porong</option>
+                                <option value="Tanggulangin">Tanggulangin</option>
+                            </select>
+                            <input type="text" id="searchDesa" placeholder="Cari desa..." class="search-input">
+                            <button class="btn btn-primary" onclick="exportData()">📥 Export Excel</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <th>Desa</th>
+                                    <th>Padi (Ton)</th>
+                                    <th>Jagung (Ton)</th>
+                                    <th>Kedelai (Ton)</th>
+                                    <th>Total (Ton)</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablePanenBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/monitoring-panen.js"></script>
+</body>
+</html>

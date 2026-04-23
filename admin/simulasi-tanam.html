@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Tanam AI - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .form-group input, .form-group select {
+            padding: 0.8rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #027373;
+        }
+        .result-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+        .result-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .result-card {
+            background: rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .result-rank {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .result-tanaman {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .result-score {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .metodologi-box {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .formula {
+            background: white;
+            padding: 1rem;
+            border-left: 4px solid #027373;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+             <div class="sidebar-header">
+    <img src="../assets/img/logo.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item active"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">🔬 Simulasi Tanam AI</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="info-box">
+                    <div class="info-icon">🤖</div>
+                    <div class="info-content">
+                        <h3>Simulasi Rekomendasi Tanam Global</h3>
+                        <p>Masukkan kondisi lahan Anda dan dapatkan rekomendasi tanaman terbaik menggunakan algoritma Fuzzy Logic, TOPSIS, dan Probabilistic Scoring. Sistem akan menganalisis berbagai faktor untuk memberikan rekomendasi yang optimal.</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>📝 Input Kondisi Lahan</h2>
+                        <button class="btn btn-outline" onclick="resetForm()">🔄 Reset Form</button>
+                    </div>
+
+                    <form id="simulasiForm" onsubmit="hitungSimulasi(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="kecamatan">📍 Kecamatan</label>
+                                <select id="kecamatan" required>
+                                    <option value="">Pilih Kecamatan</option>
+                                    <option value="Candi">Candi</option>
+                                    <option value="Sidoarjo">Sidoarjo</option>
+                                    <option value="Buduran">Buduran</option>
+                                    <option value="Taman">Taman</option>
+                                    <option value="Waru">Waru</option>
+                                    <option value="Krian">Krian</option>
+                                    <option value="Porong">Porong</option>
+                                    <option value="Tanggulangin">Tanggulangin</option>
+                                    <option value="Gedangan">Gedangan</option>
+                                    <option value="Prambon">Prambon</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="luasLahan">📏 Luas Lahan (Hektar)</label>
+                                <input type="number" id="luasLahan" step="0.1" min="0.1" placeholder="Contoh: 2.5" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="suhu">🌡️ Suhu Rata-rata (°C)</label>
+                                <input type="number" id="suhu" step="0.1" min="15" max="40" placeholder="Contoh: 28" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="curahHujan">💧 Curah Hujan (mm/bulan)</label>
+                                <input type="number" id="curahHujan" step="1" min="0" placeholder="Contoh: 250" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phTanah">🌱 pH Tanah</label>
+                                <input type="number" id="phTanah" step="0.1" min="4" max="9" placeholder="Contoh: 6.5" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="kelembaban">💨 Kelembaban Udara (%)</label>
+                                <input type="number" id="kelembaban" step="1" min="0" max="100" placeholder="Contoh: 75" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ketinggian">⛰️ Ketinggian (mdpl)</label>
+                                <input type="number" id="ketinggian" step="1" min="0" placeholder="Contoh: 50" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="teksturTanah">🏜️ Tekstur Tanah</label>
+                                <select id="teksturTanah" required>
+                                    <option value="">Pilih Tekstur</option>
+                                    <option value="liat">Liat</option>
+                                    <option value="lempung">Lempung</option>
+                                    <option value="pasir">Pasir</option>
+                                    <option value="lempung-liat">Lempung Liat</option>
+                                    <option value="lempung-berpasir">Lempung Berpasir</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ketersediaanAir">💦 Ketersediaan Air</label>
+                                <select id="ketersediaanAir" required>
+                                    <option value="">Pilih Kondisi</option>
+                                    <option value="sangat-baik">Sangat Baik (Irigasi Teknis)</option>
+                                    <option value="baik">Baik (Irigasi Semi Teknis)</option>
+                                    <option value="cukup">Cukup (Tadah Hujan)</option>
+                                    <option value="kurang">Kurang (Sumur)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="musimTanam">📅 Musim Tanam</label>
+                                <select id="musimTanam" required>
+                                    <option value="">Pilih Musim</option>
+                                    <option value="1">Musim Hujan (Nov-Mar)</option>
+                                    <option value="2">Musim Kemarau (Apr-Okt)</option>
+                                    <option value="3">Peralihan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 2rem;">
+                            <button type="submit" class="btn btn-primary" style="padding: 1rem 3rem; font-size: 1.1rem;">
+                                🚀 Hitung Rekomendasi AI
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="hasilSimulasi" style="display: none;">
+                    <div class="result-box">
+                        <h2 style="text-align: center; margin-bottom: 1rem;">🎯 Hasil Simulasi AI</h2>
+                        <p style="text-align: center; opacity: 0.9;">Berdasarkan analisis kondisi lahan Anda</p>
+                        
+                        <div class="result-cards" id="resultCards"></div>
+                    </div>
+
+                    <div class="section-card" style="margin-top: 2rem;">
+                        <h3>📊 Detail Analisis</h3>
+                        <div id="detailAnalisis"></div>
+                    </div>
+
+                    <div class="section-card">
+                        <h3>🧮 Metodologi Perhitungan</h3>
+                        <div class="metodologi-box">
+                            <h4>1. Fuzzy Logic Scoring</h4>
+                            <p>Menggunakan fungsi keanggotaan fuzzy untuk menilai setiap parameter:</p>
+                            <div class="formula">
+                                Score = (suhu_fuzzy × 0.25) + (curah_hujan_fuzzy × 0.30) + (pH_fuzzy × 0.20) + (kelembaban_fuzzy × 0.15) + (air_fuzzy × 0.10)
+                            </div>
+
+                            <h4 style="margin-top: 1rem;">2. TOPSIS Method</h4>
+                            <p>Technique for Order of Preference by Similarity to Ideal Solution:</p>
+                            <div class="formula">
+                                TOPSIS_Score = D⁻ / (D⁺ + D⁻)<br>
+                                D⁺ = Jarak ke solusi ideal positif<br>
+                                D⁻ = Jarak ke solusi ideal negatif
+                            </div>
+
+                            <h4 style="margin-top: 1rem;">3. Probabilistic Scoring</h4>
+                            <p>Menghitung probabilitas kesuksesan berdasarkan data historis:</p>
+                            <div class="formula">
+                                P(success) = Σ(kondisi_sesuai × bobot_parameter) / total_bobot
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/simulasi-tanam.js"></script>
+</body>
+</html>

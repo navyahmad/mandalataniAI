@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Penyuluh Desa - Mandala Tani AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0d8f52 0%, #0a6b3e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1600');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      filter: blur(3px);
+    }
+
+    .auth-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .logo-section {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      background: white;
+      border-radius: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      margin-bottom: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .brand-name {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .brand-tagline {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .auth-card {
+      background: white;
+      border-radius: 18px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .auth-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-label i {
+      margin-right: 6px;
+      color: #0d8f52;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e5e5e5;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: #0d8f52;
+      box-shadow: 0 0 0 4px rgba(13, 143, 82, 0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d8f52 0%, #0a6b3e 100%);
+      color: white;
+      margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(13, 143, 82, 0.3);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid #e5e5e5;
+    }
+
+    .auth-footer p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .auth-link {
+      color: #0d8f52;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: color 0.3s ease;
+    }
+
+    .auth-link:hover {
+      color: #0a6b3e;
+      text-decoration: underline;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .alert-error {
+      background: #fee;
+      color: #c33;
+      border: 1px solid #fcc;
+    }
+
+    .alert-success {
+      background: #efe;
+      color: #3c3;
+      border: 1px solid #cfc;
+    }
+
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 30px 24px;
+      }
+
+      .brand-name {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="logo-section">
+      <div class="logo">🌾</div>
+      <h1 class="brand-name">Mandala Tani AI</h1>
+      <p class="brand-tagline">Sistem Monitoring & Prediksi Pertanian Sidoarjo</p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-header">
+        <h2 class="auth-title">Daftar Penyuluh Desa</h2>
+        <p class="auth-subtitle">Lengkapi data Anda untuk mendaftar</p>
+      </div>
+
+      <div id="alertContainer"></div>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <label class="form-label">
+            <i>👤</i> Nama Lengkap
+          </label>
+          <input 
+            type="text" 
+            class="form-input" 
+            placeholder="Masukkan nama lengkap" 
+            id="nama"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i>📧</i> Email
+          </label>
+          <input 
+            type="email" 
+            class="form-input" 
+            placeholder="nama@email.com" 
+            id="email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i>📍</i> Kecamatan
+          </label>
+          <select class="form-select" id="kecamatan" required>
+            <option value="">-- Pilih Kecamatan --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i>🏘️</i> Desa/Kelurahan
+          </label>
+          <select class="form-select" id="desa" required disabled>
+            <option value="">-- Pilih Kecamatan terlebih dahulu --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i>🔒</i> Password
+          </label>
+          <input 
+            type="password" 
+            class="form-input" 
+            placeholder="Minimal 6 karakter" 
+            id="password"
+            required
+            minlength="6"
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i>🔒</i> Konfirmasi Password
+          </label>
+          <input 
+            type="password" 
+            class="form-input" 
+            placeholder="Ulangi password Anda" 
+            id="confirmPassword"
+            required
+            minlength="6"
+          >
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          🏘️ Daftar Sebagai Penyuluh Desa
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Sudah punya akun?</p>
+        <a href="login.html" class="auth-link">→ Masuk di sini</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Data desa per kecamatan
+    const desaData = {
+      "Sidoarjo": ["Sidoarjo", "Lemahputro", "Magersari", "Sidokare", "Gebang"],
+      "Buduran": ["Buduran", "Sekardangan", "Siwalanpanji", "Prasung", "Sawohan"],
+      "Candi": ["Candi", "Bligo", "Durungbanjar", "Gelam", "Ngampelsari"],
+      "Porong": ["Porong", "Wunut", "Jatirejo", "Kebakalan", "Plumbon"],
+      "Krembung": ["Krembung", "Prambon", "Rejeni", "Keboharan", "Semambung"],
+      "Tulangan": ["Tulangan", "Grabagan", "Kendal", "Kemantren", "Keyongan"],
+      "Tanggulangin": ["Tanggulangin", "Kedensari", "Kalitengah", "Gelang", "Ketegan"],
+      "Jabon": ["Jabon", "Kemuning", "Permisan", "Lajuk", "Jasem"],
+      "Krian": ["Krian", "Sidomulyo", "Barengkrajan", "Kemasan", "Kepuhkiriman"],
+      "Balongbendo": ["Balongbendo", "Balonggarut", "Pejarakan", "Karangtanjung", "Galang"],
+      "Wonoayu": ["Wonoayu", "Simoanginangin", "Lambangan", "Panjunan", "Jimbaran"],
+      "Tarik": ["Tarik", "Mergobener", "Kramatinggil", "Gempol", "Sumberejo"],
+      "Prambon": ["Prambon", "Ploso", "Karangpuri", "Krecek", "Sumbergedong"],
+      "Taman": ["Taman", "Sepanjang", "Ketegan", "Jemundo", "Ngelom"],
+      "Sukodono": ["Sukodono", "Suruh", "Anggaswangi", "Bulang", "Cemandi"],
+      "Gedangan": ["Gedangan", "Ketajen", "Kragan", "Sawocangkring", "Tebel"],
+      "Sedati": ["Sedati", "Betro", "Pulungan", "Pranti", "Semampir"],
+      "Waru": ["Waru", "Jemirahan", "Kedungrejo", "Kureksari", "Medaeng"]
+    };
+
+    // Populate kecamatan dropdown
+    const kecamatanSelect = document.getElementById('kecamatan');
+    Object.keys(desaData).forEach(kecamatan => {
+      const option = document.createElement('option');
+      option.value = kecamatan;
+      option.textContent = kecamatan;
+      kecamatanSelect.appendChild(option);
+    });
+
+    // Handle kecamatan change
+    kecamatanSelect.addEventListener('change', function() {
+      const desaSelect = document.getElementById('desa');
+      desaSelect.innerHTML = '<option value="">-- Pilih Desa/Kelurahan --</option>';
+      
+      const selectedKecamatan = this.value;
+      if (selectedKecamatan && desaData[selectedKecamatan]) {
+        desaSelect.disabled = false;
+        desaData[selectedKecamatan].forEach(desa => {
+          const option = document.createElement('option');
+          option.value = desa;
+          option.textContent = desa;
+          desaSelect.appendChild(option);
+        });
+      } else {
+        desaSelect.disabled = true;
+      }
+    });
+
+    // Fungsi untuk menampilkan alert
+    function showAlert(message, type = 'error') {
+      const alertContainer = document.getElementById('alertContainer');
+      alertContainer.innerHTML = `
+        <div class="alert alert-${type}">
+          ${message}
+        </div>
+      `;
+      setTimeout(() => {
+        alertContainer.innerHTML = '';
+      }, 5000);
+    }
+
+    // Handle register form
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const nama = document.getElementById('nama').value;
+      const email = document.getElementById('email').value;
+      const kecamatan = document.getElementById('kecamatan').value;
+      const desa = document.getElementById('desa').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      // Validasi
+      if (password.length < 6) {
+        showAlert('Password minimal 6 karakter!');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showAlert('Password dan konfirmasi password tidak sama!');
+        return;
+      }
+
+      // Ambil data users dari localStorage
+      let users = JSON.parse(localStorage.getItem('mandalaTaniUsers') || '[]');
+      
+      // Cek apakah email sudah terdaftar
+      if (users.some(u => u.email === email)) {
+        showAlert('Email sudah terdaftar!');
+        return;
+      }
+
+      // Tambahkan user baru
+      users.push({
+        nama: nama,
+        email: email,
+        kecamatan: kecamatan,
+        desa: desa,
+        password: password,
+        role: 'penyuluh_desa',
+        registeredAt: new Date().toISOString()
+      });
+
+      // Simpan ke localStorage
+      localStorage.setItem('mandalaTaniUsers', JSON.stringify(users));
+
+      showAlert('Pendaftaran berhasil! Mengalihkan ke halaman login...', 'success');
+      
+      // Redirect ke login
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola User - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .user-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+           <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item active"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">👥 Kelola User</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="user-stats">
+                    <div class="stat-card green">
+                        <div class="stat-icon">👨‍💼</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalAdmin">5</div>
+                            <div class="stat-label">Admin Dinas</div>
+                        </div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">👨‍🌾</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalPenyuluhKec">18</div>
+                            <div class="stat-label">Penyuluh Kecamatan</div>
+                        </div>
+                    </div>
+                    <div class="stat-card yellow">
+                        <div class="stat-icon">🏘️</div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalPenyuluhDesa">322</div>
+                            <div class="stat-label">Penyuluh Desa</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>👤 Daftar User</h2>
+                        <div class="header-actions">
+                            <input type="text" id="searchUser" placeholder="Cari user..." class="search-input">
+                            <select id="filterRole" class="select-filter" onchange="filterUser()">
+                                <option value="all">Semua Role</option>
+                                <option value="admin">Admin Dinas</option>
+                                <option value="penyuluh_kecamatan">Penyuluh Kecamatan</option>
+                                <option value="penyuluh_desa">Penyuluh Desa</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="openModal('add')">➕ Tambah User</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Wilayah</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableUserBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Add/Edit User -->
+    <div id="modalUser" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Tambah User Baru</h2>
+            <form id="formUser" onsubmit="saveUser(event)" style="display: grid; gap: 1rem;">
+                <input type="hidden" id="editUserId">
+                <div>
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="namaUser" required style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input type="email" id="emailUser" required style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label>Role</label>
+                    <select id="roleUser" required onchange="updateWilayahOptions()" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                        <option value="">Pilih Role</option>
+                        <option value="admin">Admin Dinas</option>
+                        <option value="penyuluh_kecamatan">Penyuluh Kecamatan</option>
+                        <option value="penyuluh_desa">Penyuluh Desa</option>
+                    </select>
+                </div>
+                <div id="wilayahContainer" style="display: none;">
+                    <label>Wilayah</label>
+                    <select id="wilayahUser" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;"></select>
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" id="passwordUser" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                    <small style="color: #7f8c8d;">Kosongkan jika tidak ingin mengubah password</small>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">💾 Simpan</button>
+                    <button type="button" class="btn btn-outline" style="flex: 1;" onclick="closeModal()">❌ Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/kelola-user.js"></script>
+</body>
+</html>

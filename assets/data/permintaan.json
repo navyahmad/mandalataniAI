@@ -1,0 +1,34 @@
+{
+  "permintaan": [
+    {
+      "id": 1,
+      "kelompok": "Tani Makmur",
+      "jenis": "Urea",
+      "jumlah": 250,
+      "alasan": "Daun menguning sebelum waktu panen",
+      "status": "Menunggu",
+      "lokasi": [-7.455, 112.716],
+      "tanggal": "2025-11-20"
+    },
+    {
+      "id": 2,
+      "kelompok": "Sumber Pangan",
+      "jenis": "NPK",
+      "jumlah": 180,
+      "alasan": "Rehabilitasi setelah banjir",
+      "status": "Disetujui",
+      "lokasi": [-7.5, 112.69],
+      "tanggal": "2025-11-18"
+    },
+    {
+      "id": 3,
+      "kelompok": "Harapan Jaya",
+      "jenis": "Urea",
+      "jumlah": 140,
+      "alasan": "Tanaman memasuki fase generatif",
+      "status": "Ditolak",
+      "lokasi": [-7.39, 112.74],
+      "tanggal": "2025-11-15"
+    }
+  ]
+}

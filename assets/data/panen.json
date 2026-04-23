@@ -1,0 +1,102 @@
+{
+  "ringkasan": {
+    "totalDesa": 18,
+    "luasTanam": 865,
+    "hasilPanen": 2740,
+    "belumLengkap": 4
+  },
+  "tren": [
+    { "komoditas": "Padi", "nilai": [280, 320, 360, 400] },
+    { "komoditas": "Jagung", "nilai": [150, 170, 185, 210] },
+    { "komoditas": "Cabai", "nilai": [60, 75, 90, 110] },
+    { "komoditas": "Kedelai", "nilai": [55, 70, 80, 95] }
+  ],
+  "desa": [
+    {
+      "id": 1,
+      "desa": "Kedungbendo",
+      "komoditas": "Padi",
+      "luas": 65,
+      "hasil": 210,
+      "status": "Lengkap",
+      "cuaca": "Cerah",
+      "opt": false,
+      "catatan": "Irigasi lancar"
+    },
+    {
+      "id": 2,
+      "desa": "Kebonsari",
+      "komoditas": "Jagung",
+      "luas": 40,
+      "hasil": 125,
+      "status": "Lengkap",
+      "cuaca": "Berawan",
+      "opt": true,
+      "catatan": "Serangan ulat ringan"
+    },
+    {
+      "id": 3,
+      "desa": "Kaliwedi",
+      "komoditas": "Cabai",
+      "luas": 28,
+      "hasil": 80,
+      "status": "Belum Lengkap",
+      "cuaca": "Hujan",
+      "opt": false,
+      "catatan": "Menunggu data luas tanam final"
+    },
+    {
+      "id": 4,
+      "desa": "Sidokerto",
+      "komoditas": "Padi",
+      "luas": 52,
+      "hasil": 174,
+      "status": "Lengkap",
+      "cuaca": "Cerah",
+      "opt": false,
+      "catatan": "Panen raya minggu ke-3"
+    },
+    {
+      "id": 5,
+      "desa": "Cangkring",
+      "komoditas": "Kedelai",
+      "luas": 33,
+      "hasil": 96,
+      "status": "Lengkap",
+      "cuaca": "Berawan",
+      "opt": false,
+      "catatan": "Tanah masih lembab"
+    },
+    {
+      "id": 6,
+      "desa": "Grogol",
+      "komoditas": "Padi",
+      "luas": 58,
+      "hasil": 188,
+      "status": "Belum Lengkap",
+      "cuaca": "Hujan",
+      "opt": true,
+      "catatan": "Laporan OPT sedang diverifikasi"
+    }
+  ],
+  "notifikasi": [
+    {
+      "desa": "Kebonsari",
+      "jenis": "OPT",
+      "detail": "Potensi serangan wereng, rekomendasi monitoring 3x/minggu",
+      "status": "Waspada"
+    },
+    {
+      "desa": "Kaliwedi",
+      "jenis": "Banjir",
+      "detail": "Debit Sungai Porong meningkat 30%, siapkan pompa",
+      "status": "Siaga"
+    },
+    {
+      "desa": "Grogol",
+      "jenis": "OPT",
+      "detail": "Pengamatan walang sangit pada 15% petak sawah",
+      "status": "Waspada"
+    }
+  ]
+}

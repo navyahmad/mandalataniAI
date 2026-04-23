@@ -1,0 +1,12 @@
+{
+  "Candi": {"curah_hujan": 180, "status": "Normal", "suhu": 28, "kelembaban": 75},
+  "Sidoarjo": {"curah_hujan": 150, "status": "Normal", "suhu": 29, "kelembaban": 72},
+  "Buduran": {"curah_hujan": 195, "status": "Normal", "suhu": 27, "kelembaban": 78},
+  "Taman": {"curah_hujan": 220, "status": "Waspada", "suhu": 26, "kelembaban": 80},
+  "Waru": {"curah_hujan": 170, "status": "Normal", "suhu": 28, "kelembaban": 74},
+  "Krian": {"curah_hujan": 200, "status": "Waspada", "suhu": 27, "kelembaban": 76},
+  "Porong": {"curah_hujan": 310, "status": "Siaga", "suhu": 25, "kelembaban": 85},
+  "Tanggulangin": {"curah_hujan": 350, "status": "Awas", "suhu": 24, "kelembaban": 88},
+  "Gedangan": {"curah_hujan": 160, "status": "Normal", "suhu": 29, "kelembaban": 70},
+  "Prambon": {"curah_hujan": 190, "status": "Normal", "suhu": 28, "kelembaban": 73}
+}

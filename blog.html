@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Mandala Tani AI</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <span class="logo-icon">🌾</span>
+          <span class="logo-text">Mandala Tani AI</span>
+        </div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="blog.html" class="active">Blog</a>
+          <a href="peta.html">Peta</a>
+          <a href="penyuluh-kecamatan/dashboard.html">Penyuluh Kecamatan</a>
+          <a href="penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero blog-hero">
+    <div class="container">
+      <p class="hero-pill">Blog & Artikel</p>
+      <h1>Insight Pertanian & Inovasi AI</h1>
+      <p>Rangkuman praktik terbaik, berita komoditas utama Sidoarjo, serta tips optimalisasi pupuk dan produksi.</p>
+    </div>
+  </section>
+
+  <section class="blog-section" id="blog">
+    <div class="container">
+      <div class="blog-filters">
+        <div>
+          <label for="kategori">Kategori</label>
+          <select id="kategori">
+            <option>Semua</option>
+            <option>Produksi</option>
+            <option>Teknologi</option>
+            <option>OPT</option>
+          </select>
+        </div>
+        <div>
+          <label for="periode">Periode</label>
+          <select id="periode">
+            <option>2025</option>
+            <option>2024</option>
+            <option>2023</option>
+          </select>
+        </div>
+        <button class="btn btn-primary small-btn" type="button">Terapkan</button>
+      </div>
+
+      <div class="blog-grid" id="blogGrid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Mandala Tani AI</h3>
+          <p>Platform AI untuk optimalisasi rantai pasok pertanian di Kabupaten Sidoarjo.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Tautan</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="peta.html">Peta</a></li>
+            <li><a href="index.html#cta">Kontak</a></li>
+            <li><a href="penyuluh-kecamatan/dashboard.html">Penyuluh Kecamatan</a></li>
+            <li><a href="penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Kontak</h4>
+          <p>Dinas Pertanian Kabupaten Sidoarjo</p>
+          <p>Email: info@mandalatani.go.id</p>
+          <p>Telp: (031) 1234567</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Mandala Tani AI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>

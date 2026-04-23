@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Hasil Panen - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .scenario-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+        }
+        .scenario-card.normal { border-color: #27ae60; }
+        .scenario-card.ekstrem { border-color: #e74c3c; }
+        .comparison-table {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        .comparison-table td {
+            padding: 0.8rem;
+            border-bottom: 1px solid #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+           <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item active"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">🌾 Simulasi Hasil Panen</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="info-box">
+                    <div class="info-icon">🔮</div>
+                    <div class="info-content">
+                        <h3>Simulasi Cuaca Ekstrem vs Normal</h3>
+                        <p>Mensimulasikan dampak cuaca ekstrem (banjir, kekeringan, suhu ekstrem) terhadap hasil panen dibandingkan dengan kondisi normal untuk perencanaan mitigasi risiko.</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📝 Input Parameter Simulasi</h2>
+                    <form id="formSimulasi" onsubmit="runSimulation(event)" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Jenis Tanaman</label>
+                            <select id="jenisTanaman" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                                <option value="padi">Padi</option>
+                                <option value="jagung">Jagung</option>
+                                <option value="kedelai">Kedelai</option>
+                                <option value="tebu">Tebu</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Luas Lahan (Ha)</label>
+                            <input type="number" id="luasLahan" value="100" min="1" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Skenario Cuaca Ekstrem</label>
+                            <select id="skenarioCuaca" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                                <option value="banjir">Banjir (Curah Hujan > 400mm)</option>
+                                <option value="kekeringan">Kekeringan (Curah Hujan < 100mm)</option>
+                                <option value="suhu_tinggi">Suhu Ekstrem Tinggi (> 35°C)</option>
+                                <option value="angin_kencang">Angin Kencang & Badai</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Durasi Cuaca Ekstrem</label>
+                            <select id="durasiEkstrem" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                                <option value="1">1 Minggu</option>
+                                <option value="2">2 Minggu</option>
+                                <option value="4">1 Bulan</option>
+                                <option value="8">2 Bulan</option>
+                            </select>
+                        </div>
+                        <div style="grid-column: span 2;">
+                            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">
+                                🚀 Jalankan Simulasi
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="hasilSimulasi" style="display: none;">
+                    <div class="scenario-grid">
+                        <div class="scenario-card normal">
+                            <h2 style="color: #27ae60; margin-bottom: 1rem;">☀️ Kondisi Normal</h2>
+                            <div id="normalResults"></div>
+                        </div>
+
+                        <div class="scenario-card ekstrem">
+                            <h2 style="color: #e74c3c; margin-bottom: 1rem;">⚠️ Kondisi Ekstrem</h2>
+                            <div id="ekstremResults"></div>
+                        </div>
+                    </div>
+
+                    <div class="section-card" style="margin-top: 2rem;">
+                        <h2>📊 Perbandingan Detail</h2>
+                        <table class="comparison-table">
+                            <tbody id="comparisonTable"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="section-card">
+                        <h2>💡 Rekomendasi Mitigasi</h2>
+                        <div id="rekomendasiMitigasi"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/simulasi-panen.js"></script>
+</body>
+</html>

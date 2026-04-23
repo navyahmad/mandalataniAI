@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi OPT - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .risk-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+        }
+        .risk-card.tinggi { border-color: #e74c3c; }
+        .risk-card.sedang { border-color: #f39c12; }
+        .risk-card.rendah { border-color: #27ae60; }
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+        .risk-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .risk-badge.tinggi { background: #ffebee; color: #c62828; }
+        .risk-badge.sedang { background: #fff3e0; color: #e65100; }
+        .risk-badge.rendah { background: #e8f5e9; color: #2e7d32; }
+        .condition-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .condition-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item active"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">🐛 Prediksi OPT (Hama & Penyakit)</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="info-box">
+                    <div class="info-icon">🤖</div>
+                    <div class="info-content">
+                        <h3>Sistem Prediksi OPT Berbasis AI</h3>
+                        <p>Deteksi dini dan prediksi Organisme Pengganggu Tanaman (OPT) berdasarkan kondisi cuaca, suhu, kelembaban, dan data historis untuk pencegahan yang lebih efektif.</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>⚠️ Prediksi Risiko OPT</h2>
+                        <div class="header-actions">
+                            <select id="filterTanaman" class="select-filter" onchange="filterByTanaman()">
+                                <option value="all">Semua Tanaman</option>
+                                <option value="Padi">Padi</option>
+                                <option value="Jagung">Jagung</option>
+                                <option value="Kedelai">Kedelai</option>
+                                <option value="Tebu">Tebu</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="refreshPrediksi()">🔄 Refresh Prediksi</button>
+                        </div>
+                    </div>
+
+                    <div class="risk-grid" id="riskGrid"></div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📊 Tabel Risiko OPT per Kecamatan</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <th>Suhu (°C)</th>
+                                    <th>Kelembaban (%)</th>
+                                    <th>Curah Hujan (mm)</th>
+                                    <th>Risiko Wereng</th>
+                                    <th>Risiko Jamur</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableRisikoBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>💡 Panduan Penanganan OPT</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                        <div style="padding: 1.5rem; background: #ffebee; border-radius: 8px;">
+                            <h4 style="color: #c62828; margin-bottom: 1rem;">🐛 Wereng Batang Coklat</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Gunakan varietas padi tahan wereng</li>
+                                <li>Aplikasi insektisida sesuai dosis</li>
+                                <li>Sanitasi lahan dan rumput liar</li>
+                                <li>Monitoring rutin setiap minggu</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #fff3e0; border-radius: 8px;">
+                            <h4 style="color: #e65100; margin-bottom: 1rem;">🦗 Penggerek Batang</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Pemangkasan dan pembakaran tunggul</li>
+                                <li>Tanam serentak untuk memutus siklus</li>
+                                <li>Gunakan insektisida sistemik</li>
+                                <li>Penggunaan perangkap feromon</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #e3f2fd; border-radius: 8px;">
+                            <h4 style="color: #1565c0; margin-bottom: 1rem;">🍄 Blas (Blast Disease)</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Aplikasi fungisida preventif</li>
+                                <li>Hindari pemupukan N berlebihan</li>
+                                <li>Jaga kelembaban tidak terlalu tinggi</li>
+                                <li>Rotasi varietas tahan penyakit</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #e8f5e9; border-radius: 8px;">
+                            <h4 style="color: #2e7d32; margin-bottom: 1rem;">🦟 Pencegahan Umum</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Monitoring cuaca secara berkala</li>
+                                <li>Sanitasi lingkungan pertanian</li>
+                                <li>Rotasi tanaman</li>
+                                <li>Penggunaan pestisida bijak</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/prediksi-opt.js"></script>
+</body>
+</html>

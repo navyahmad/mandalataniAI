@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Banjir - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .weather-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .weather-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .weather-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .map-banjir {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .map-item-banjir {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+            border: 3px solid;
+        }
+        .map-item-banjir:hover {
+            transform: scale(1.05);
+        }
+        .map-item-banjir.normal {
+            border-color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+        }
+        .map-item-banjir.waspada {
+            border-color: #f39c12;
+            background: rgba(243, 156, 18, 0.1);
+        }
+        .map-item-banjir.siaga {
+            border-color: #e67e22;
+            background: rgba(230, 126, 34, 0.1);
+        }
+        .map-item-banjir.awas {
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item active"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">🌊 Prediksi Banjir</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="info-box" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+                    <div class="info-icon">☁️</div>
+                    <div class="info-content">
+                        <h3>Data BMKG Real-time</h3>
+                        <p>Prediksi banjir berdasarkan data cuaca BMKG, curah hujan, dan kondisi geografis untuk antisipasi dini dan mitigasi bencana di wilayah pertanian.</p>
+                    </div>
+                </div>
+
+                <div class="weather-stats">
+                    <div class="weather-card">
+                        <div class="weather-icon">🌧️</div>
+                        <div style="font-size: 2rem; font-weight: bold;">3</div>
+                        <div style="color: #e74c3c;">Kecamatan Awas</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-icon">⚠️</div>
+                        <div style="font-size: 2rem; font-weight: bold;">2</div>
+                        <div style="color: #e67e22;">Kecamatan Siaga</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-icon">⚡</div>
+                        <div style="font-size: 2rem; font-weight: bold;">3</div>
+                        <div style="color: #f39c12;">Kecamatan Waspada</div>
+                    </div>
+                    <div class="weather-card">
+                        <div class="weather-icon">✅</div>
+                        <div style="font-size: 2rem; font-weight: bold;">10</div>
+                        <div style="color: #27ae60;">Kecamatan Normal</div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>🗺️ Peta Status Banjir Kecamatan</h2>
+                        <button class="btn btn-primary" onclick="refreshBMKG()">🔄 Refresh Data BMKG</button>
+                    </div>
+
+                    <div class="map-banjir" id="mapBanjir"></div>
+
+                    <div style="display: flex; gap: 2rem; margin-top: 2rem; justify-content: center;">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background: rgba(39, 174, 96, 0.3); border: 2px solid #27ae60; border-radius: 4px;"></div>
+                            <span>Normal (< 200mm)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background: rgba(243, 156, 18, 0.3); border: 2px solid #f39c12; border-radius: 4px;"></div>
+                            <span>Waspada (200-300mm)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background: rgba(230, 126, 34, 0.3); border: 2px solid #e67e22; border-radius: 4px;"></div>
+                            <span>Siaga (300-400mm)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div style="width: 20px; height: 20px; background: rgba(231, 76, 60, 0.3); border: 2px solid #e74c3c; border-radius: 4px;"></div>
+                            <span>Awas (> 400mm)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📋 Detail Status per Kecamatan</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <th>Curah Hujan (mm)</th>
+                                    <th>Suhu (°C)</th>
+                                    <th>Kelembaban (%)</th>
+                                    <th>Status</th>
+                                    <th>Rekomendasi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBanjirBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>🛡️ Rekomendasi Mitigasi Banjir</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                        <div style="padding: 1.5rem; background: #ffebee; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                            <h4 style="color: #c62828; margin-bottom: 1rem;">🚨 Status Awas</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Evakuasi area rawan banjir</li>
+                                <li>Hentikan aktivitas pertanian sementara</li>
+                                <li>Siapkan sistem drainase darurat</li>
+                                <li>Koordinasi dengan BPBD</li>
+                                <li>Monitoring 24/7</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f39c12;">
+                            <h4 style="color: #e65100; margin-bottom: 1rem;">⚠️ Status Waspada</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Monitoring intensif setiap 6 jam</li>
+                                <li>Siapkan pompa air</li>
+                                <li>Bersihkan saluran air</li>
+                                <li>Simpan hasil panen di tempat aman</li>
+                                <li>Siapkan rencana evakuasi</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;">
+                            <h4 style="color: #0d47a1; margin-bottom: 1rem;">💡 Pencegahan</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Tanam tanaman penahan air</li>
+                                <li>Buat tanggul pembatas</li>
+                                <li>Sistem drainase yang baik</li>
+                                <li>Hindari pembuangan sampah ke saluran</li>
+                                <li>Edukasi masyarakat petani</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #388e3c;">
+                            <h4 style="color: #1b5e20; margin-bottom: 1rem;">📱 Informasi Darurat</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Hotline BPBD: 0812-xxxx-xxxx</li>
+                                <li>Posko Banjir: 031-xxxx-xxx</li>
+                                <li>Update Info: bit.ly/infobanjir</li>
+                                <li>Aplikasi: Sidoarjo Tanggap</li>
+                                <li>Twitter: @BMKGSurabaya</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/prediksi-banjir.js"></script>
+</body>
+</html>

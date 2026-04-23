@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Blog - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .blog-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .blog-item:hover {
+            transform: translateY(-5px);
+        }
+        .blog-thumbnail {
+            height: 180px;
+            background: linear-gradient(135deg, #027373, #0a8f5a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .blog-body {
+            padding: 1.5rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 0.8rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            font-family: inherit;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <span class="logo-icon">🌾</span>
+                <span class="logo-text">Mandala Tani AI</span>
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a>
+                <a href="permintaan-pasar.html" class="nav-item"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item active"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">📝 Kelola Blog & Artikel</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>📰 Daftar Artikel</h2>
+                        <div class="header-actions">
+                            <input type="text" id="searchBlog" placeholder="Cari artikel..." class="search-input">
+                            <select id="filterKategori" class="select-filter" onchange="filterBlog()">
+                                <option value="all">Semua Kategori</option>
+                                <option value="Teknologi">Teknologi</option>
+                                <option value="Tips">Tips</option>
+                                <option value="Berita">Berita</option>
+                                <option value="Panduan">Panduan</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="openModal('add')">➕ Tulis Artikel Baru</button>
+                        </div>
+                    </div>
+
+                    <div class="blog-grid" id="blogGrid"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Add/Edit Blog -->
+    <div id="modalBlog" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Tulis Artikel Baru</h2>
+            <form id="formBlog" onsubmit="saveBlog(event)" style="display: grid; gap: 1rem; margin-top: 1.5rem;">
+                <input type="hidden" id="editBlogId">
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Judul Artikel</label>
+                    <input type="text" id="judulBlog" required style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Kategori</label>
+                    <select id="kategoriBlog" required style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                        <option value="">Pilih Kategori</option>
+                        <option value="Teknologi">Teknologi</option>
+                        <option value="Tips">Tips & Trik</option>
+                        <option value="Berita">Berita</option>
+                        <option value="Panduan">Panduan</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Icon (Emoji)</label>
+                    <input type="text" id="iconBlog" maxlength="2" placeholder="🌾" style="width: 100%; padding: 0.8rem; border: 2px solid #ecf0f1; border-radius: 6px;">
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Ringkasan</label>
+                    <textarea id="ringkasanBlog" rows="3" required style="min-height: 100px;"></textarea>
+                </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Konten Lengkap</label>
+                    <textarea id="kontenBlog" rows="10" required></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">💾 Publikasikan</button>
+                    <button type="button" class="btn btn-outline" style="flex: 1;" onclick="closeModal()">❌ Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/kelola-blog.js"></script>
+</body>
+</html>

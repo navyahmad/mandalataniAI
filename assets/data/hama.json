@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "nama": "Wereng Batang Coklat",
+    "tanaman": "Padi",
+    "tingkat_risiko": "Tinggi",
+    "gejala": "Daun menguning, tanaman menjadi kerdil",
+    "penanganan": "Gunakan insektisida dan tanam varietas tahan wereng",
+    "kondisi_muncul": {
+      "suhu": [25, 30],
+      "kelembaban": [70, 90],
+      "curah_hujan": "Tinggi"
+    }
+  },
+  {
+    "id": 2,
+    "nama": "Penggerek Batang",
+    "tanaman": "Jagung",
+    "tingkat_risiko": "Sedang",
+    "gejala": "Lubang pada batang, daun berlubang",
+    "penanganan": "Sanitasi lahan dan gunakan insektisida",
+    "kondisi_muncul": {
+      "suhu": [26, 32],
+      "kelembaban": [60, 80],
+      "curah_hujan": "Sedang"
+    }
+  },
+  {
+    "id": 3,
+    "nama": "Blas (Blast)",
+    "tanaman": "Padi",
+    "tingkat_risiko": "Tinggi",
+    "gejala": "Bercak coklat pada daun dan malai",
+    "penanganan": "Gunakan fungisida dan varietas tahan blas",
+    "kondisi_muncul": {
+      "suhu": [20, 28],
+      "kelembaban": [80, 95],
+      "curah_hujan": "Sangat Tinggi"
+    }
+  },
+  {
+    "id": 4,
+    "nama": "Lalat Bibit",
+    "tanaman": "Kedelai",
+    "tingkat_risiko": "Sedang",
+    "gejala": "Bibit mati atau pertumbuhan terhambat",
+    "penanganan": "Perlakuan benih dengan insektisida",
+    "kondisi_muncul": {
+      "suhu": [24, 30],
+      "kelembaban": [65, 85],
+      "curah_hujan": "Sedang"
+    }
+  },
+  {
+    "id": 5,
+    "nama": "Kutu Daun",
+    "tanaman": "Tebu",
+    "tingkat_risiko": "Rendah",
+    "gejala": "Daun keriting dan menguning",
+    "penanganan": "Semprot dengan insektisida atau pestisida nabati",
+    "kondisi_muncul": {
+      "suhu": [25, 32],
+      "kelembaban": [50, 70],
+      "curah_hujan": "Rendah"
+    }
+  }
+]

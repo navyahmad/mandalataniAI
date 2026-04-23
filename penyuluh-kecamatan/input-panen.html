@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Data Panen | Penyuluh Kecamatan</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="nav-wrapper">
+          <div class="logo">
+            <span class="logo-icon">🌾</span>
+            <span class="logo-text">Mandala Tani AI</span>
+          </div>
+          <nav class="nav">
+            <a href="../index.html">Home</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../peta.html">Peta</a>
+            <a href="dashboard.html">Penyuluh Kecamatan</a>
+            <a href="../penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-hero role-hero">
+      <div class="container">
+        <p class="hero-pill">Penyuluh Kecamatan</p>
+        <h1>Input Data Panen Lapangan</h1>
+        <p>Catat progres panen per desa secara cepat untuk sinkronisasi dengan dinas kabupaten.</p>
+        <div class="role-subnav">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="input-panen.html" class="active">Input Data Panen</a>
+          <a href="monitoring.html">Monitoring Desa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="card form-card">
+          <div class="card-header">
+            <div>
+              <h3>Form Input Panen</h3>
+              <p>Data akan tersimpan pada JSON dummy & local storage untuk simulasi.</p>
+            </div>
+          </div>
+          <form id="inputPanenForm" class="grid-form">
+            <div class="form-group">
+              <label for="desaSelect">Pilih Desa</label>
+              <select id="desaSelect" required></select>
+            </div>
+            <div class="form-group">
+              <label for="komoditasSelect">Komoditas</label>
+              <select id="komoditasSelect" required>
+                <option value="Padi">Padi</option>
+                <option value="Jagung">Jagung</option>
+                <option value="Cabai">Cabai</option>
+                <option value="Kedelai">Kedelai</option>
+                <option value="Bawang Merah">Bawang Merah</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="luasInput">Luas Tanam (Ha)</label>
+              <input type="number" id="luasInput" min="0" step="0.1" placeholder="contoh: 25" required />
+            </div>
+            <div class="form-group">
+              <label for="hasilInput">Hasil Panen (Ton)</label>
+              <input type="number" id="hasilInput" min="0" step="0.1" placeholder="contoh: 80" required />
+            </div>
+            <div class="form-group">
+              <label for="cuacaSelect">Kondisi Cuaca</label>
+              <select id="cuacaSelect" required>
+                <option value="Cerah">Cerah</option>
+                <option value="Berawan">Berawan</option>
+                <option value="Hujan">Hujan</option>
+                <option value="Ekstrem">Ekstrem</option>
+              </select>
+            </div>
+            <div class="form-group checkbox-group">
+              <label for="optCheckbox">Serangan OPT</label>
+              <input type="checkbox" id="optCheckbox" />
+            </div>
+            <div class="form-group full-width">
+              <label for="catatanInput">Catatan Lapangan</label>
+              <textarea id="catatanInput" rows="3" placeholder="Masukkan catatan penting (opsional)"></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="reset" class="btn btn-outline">Reset</button>
+              <button type="submit" class="btn btn-primary">Simpan Data</button>
+            </div>
+          </form>
+          <div id="panenFormMessage" class="form-message"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Mandala Tani AI</h3>
+            <p>Kolaborasi data pertanian untuk penyuluh kecamatan di Kabupaten Sidoarjo.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Tautan</h4>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../peta.html">Peta</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Kontak</h4>
+            <p>Dinas Pertanian Kabupaten Sidoarjo</p>
+            <p>Email: info@mandalatani.go.id</p>
+            <p>Telp: (031) 1234567</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Mandala Tani AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/penyuluh.js"></script>
+  </body>
+</html>

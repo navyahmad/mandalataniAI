@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monitoring Desa | Penyuluh Kecamatan</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="nav-wrapper">
+          <div class="logo">
+            <span class="logo-icon">🌾</span>
+            <span class="logo-text">Mandala Tani AI</span>
+          </div>
+          <nav class="nav">
+            <a href="../index.html">Home</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../peta.html">Peta</a>
+            <a href="dashboard.html">Penyuluh Kecamatan</a>
+            <a href="../penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-hero role-hero">
+      <div class="container">
+        <p class="hero-pill">Penyuluh Kecamatan</p>
+        <h1>Monitoring Data Panen Desa</h1>
+        <p>Lihat komparasi komoditas dan status kelengkapan data per desa.</p>
+        <div class="role-subnav">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="input-panen.html">Input Data Panen</a>
+          <a href="monitoring.html" class="active">Monitoring Desa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="card chart-card">
+          <div class="card-header">
+            <div>
+              <h3>Perbandingan Komoditas</h3>
+              <p>Total hasil panen (ton)</p>
+            </div>
+            <span class="badge info">Update mingguan</span>
+          </div>
+          <canvas id="komoditasChart" height="320"></canvas>
+        </div>
+
+        <div class="card table-card">
+          <div class="card-header">
+            <div>
+              <h3>Tabel Data Panen Desa</h3>
+              <p>Sinkronisasi dengan laporan terbaru</p>
+            </div>
+          </div>
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Desa</th>
+                  <th>Komoditas</th>
+                  <th>Luas (Ha)</th>
+                  <th>Hasil (Ton)</th>
+                  <th>Cuaca</th>
+                  <th>OPT</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="monitoringTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Mandala Tani AI</h3>
+            <p>Kolaborasi data pertanian untuk penyuluh kecamatan di Kabupaten Sidoarjo.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Tautan</h4>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../peta.html">Peta</a></li>
+              <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Kontak</h4>
+            <p>Dinas Pertanian Kabupaten Sidoarjo</p>
+            <p>Email: info@mandalatani.go.id</p>
+            <p>Telp: (031) 1234567</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Mandala Tani AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/penyuluh.js"></script>
+  </body>
+</html>

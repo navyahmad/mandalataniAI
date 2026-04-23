@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Permintaan Pupuk Darurat | Penyuluh Desa</title>
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha512-sA+e2atBU7J5pFB70dNDO7xjoMnIKh4j/wZUp3NEiqPFwAckS4iigFsMghvYDn8ApX2HFqDMbYTiFz3v0zYfPw==" crossorigin="" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="nav-wrapper">
+          <div class="logo">
+            <span class="logo-icon">🌾</span>
+            <span class="logo-text">Mandala Tani AI</span>
+          </div>
+          <nav class="nav">
+            <a href="../index.html">Home</a>
+            <a href="../blog.html">Blog</a>
+            <a href="../peta.html">Peta</a>
+            <a href="../penyuluh-kecamatan/dashboard.html">Penyuluh Kecamatan</a>
+            <a href="permintaan-pupuk.html" class="active">Penyuluh Desa</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <section class="page-hero role-hero">
+      <div class="container">
+        <p class="hero-pill">Penyuluh Desa</p>
+        <h1>Permintaan Pupuk Darurat</h1>
+        <p>Sampaikan kebutuhan mendesak kelompok tani lengkap dengan bukti lapangan dan titik lokasi.</p>
+        <div class="role-subnav">
+          <a href="permintaan-pupuk.html" class="active">Permintaan Pupuk</a>
+          <a href="status-permintaan.html">Status Permintaan</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-section">
+      <div class="container">
+        <div class="card form-card">
+          <div class="card-header">
+            <div>
+              <h3>Form Permintaan Pupuk</h3>
+              <p>Data akan dikirim sebagai dummy JSON dan dapat dilihat pada menu status.</p>
+            </div>
+          </div>
+          <form id="permintaanForm" class="grid-form">
+            <div class="form-group">
+              <label for="kelompokInput">Kelompok Tani</label>
+              <input type="text" id="kelompokInput" placeholder="Contoh: Tani Makmur" required />
+            </div>
+            <div class="form-group">
+              <label for="jenisPupukSelect">Jenis Pupuk</label>
+              <select id="jenisPupukSelect" required>
+                <option value="Urea">Urea</option>
+                <option value="NPK">NPK</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="jumlahInput">Jumlah (kg)</label>
+              <input type="number" id="jumlahInput" min="50" step="10" placeholder="contoh: 200" required />
+            </div>
+            <div class="form-group full-width">
+              <label for="alasanInput">Alasan Permintaan</label>
+              <textarea id="alasanInput" rows="3" placeholder="Jelaskan kebutuhan mendesak" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="buktiInput">Upload Foto Bukti (opsional)</label>
+              <input type="file" id="buktiInput" accept="image/*" />
+            </div>
+            <div class="form-group full-width">
+              <label>Lokasi Lahan (klik pada peta)</label>
+              <div id="requestMap" class="leaflet-map mini-map"></div>
+              <small id="locationInfo" class="muted-text">Belum ada titik dipilih.</small>
+            </div>
+            <div class="form-actions">
+              <button type="reset" class="btn btn-outline">Reset</button>
+              <button type="submit" class="btn btn-primary">Kirim Permintaan</button>
+            </div>
+          </form>
+          <div id="permintaanMessage" class="form-message"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Mandala Tani AI</h3>
+            <p>Kolaborasi data pertanian untuk penyuluh desa di Kabupaten Sidoarjo.</p>
+          </div>
+          <div class="footer-section">
+            <h4>Tautan</h4>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../peta.html">Peta</a></li>
+              <li><a href="status-permintaan.html">Status Permintaan</a></li>
+            </ul>
+          </div>
+          <div class="footer-section">
+            <h4>Kontak</h4>
+            <p>Dinas Pertanian Kabupaten Sidoarjo</p>
+            <p>Email: info@mandalatani.go.id</p>
+            <p>Telp: (031) 1234567</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Mandala Tani AI. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha512-vRmIeN6B2w1VlzDq+W8sELpAo0P5NdQ4KJIp4jOSAmhpN6wX6Z1GDZCBoBPuiGNsq4CPGKc/pXHiY/VUXrF5xA==" crossorigin=""></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/penyuluh.js"></script>
+  </body>
+</html>

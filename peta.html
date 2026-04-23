@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peta GIS Mandala Tani AI</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+    }
+
+    .header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      gap: 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #0d8f52;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      font-size: 32px;
+    }
+
+    .nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav a:hover, .nav a.active {
+      color: #0d8f52;
+    }
+
+    .page-hero {
+      background: linear-gradient(135deg, #0d8f52 0%, #0a6b3e 100%);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .page-hero h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .page-hero p {
+      font-size: 16px;
+      opacity: 0.95;
+    }
+
+    .map-page {
+      padding: 30px 0;
+    }
+
+    .filter-panel {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+
+    .filter-panel form {
+      display: flex;
+      gap: 15px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .filter-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .filter-group select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e5e5e5;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .filter-group select:focus {
+      outline: none;
+      border-color: #0d8f52;
+    }
+
+    .btn {
+      padding: 10px 25px;
+      background: linear-gradient(135deg, #0d8f52 0%, #0a6b3e 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(13, 143, 82, 0.3);
+    }
+
+    .filter-info {
+      margin-top: 12px;
+      color: #666;
+      font-size: 13px;
+    }
+
+    .map-container {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 20px;
+    }
+
+    .map-wrapper {
+      position: relative;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+      height: 650px;
+    }
+
+    #leafletMap {
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-legend {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-height: 350px;
+      overflow-y: auto;
+      width: 200px;
+    }
+
+    .map-legend h4 {
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: #333;
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 3px 0;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 3px 5px;
+      border-radius: 4px;
+    }
+
+    .legend-item:hover {
+      background: #f5f5f5;
+    }
+
+    .legend-color {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+
+    .legend-text {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .info-panel {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      height: 650px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .info-panel h1 {
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .info-panel h2 {
+      color: #0d8f52;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .komoditas-info {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #0d8f52;
+    }
+
+    .komoditas-info h3 {
+      font-size: 16px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .komoditas-detail {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 2px;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .produksi-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0d8f52;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .info-card {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .info-card h3 {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .info-row {
+      margin-bottom: 6px;
+    }
+
+    .info-label {
+      font-size: 12px;
+      color: #666;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      display: block;
+    }
+
+    .chart-container {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #e5e5e5;
+      margin-top: 10px;
+      height: 280px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chart-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chart-years {
+      display: flex;
+      gap: 8px;
+    }
+
+    .year-btn {
+      padding: 4px 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .year-btn.active {
+      background: #0d8f52;
+      color: white;
+      border-color: #0d8f52;
+    }
+
+    .chart-wrapper {
+      flex: 1;
+      position: relative;
+    }
+
+    .chart-canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 30px 15px;
+      color: #999;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .no-data-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .footer {
+      background: #1a1a1a;
+      color: white;
+      padding: 30px 0 15px;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .footer h3, .footer h4 {
+      margin-bottom: 12px;
+      color: #0d8f52;
+    }
+
+    .footer p, .footer a {
+      color: #ccc;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .footer ul {
+      list-style: none;
+    }
+
+    .footer a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: #0d8f52;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 15px;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 13px;
+    }
+
+    .attribution {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #666;
+      z-index: 999;
+    }
+
+    @media (max-width: 1024px) {
+      .map-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .map-wrapper {
+        height: 500px;
+      }
+      
+      .info-panel {
+        height: auto;
+      }
+      
+      .chart-container {
+        height: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-wrapper {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .nav {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      
+      .filter-panel form {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .filter-group {
+        min-width: 100%;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .map-legend {
+        width: 180px;
+        padding: 10px;
+      }
+    }
+
+    /* Custom marker styles */
+    .custom-marker {
+      background: #0d8f52;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      border: 2px solid white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .custom-marker:hover {
+      transform: scale(1.2);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    }
+
+    .marker-selected {
+      background: #ef4444;
+      transform: scale(1.3);
+      box-shadow: 0 3px 10px rgba(239, 68, 68, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <div class="logo">
+          <span class="logo-icon">🌾</span>
+          <span class="logo-text">Mandala Tani AI</span>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="blog.html">Blog</a>
+          <a href="peta.html" class="active">Peta</a>
+          <a href="penyuluh-kecamatan/dashboard.html">Penyuluh Kecamatan</a>
+          <a href="penyuluh-desa/permintaan-pupuk.html">Penyuluh Desa</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="hero-pill">Peta GIS Sidoarjo</p>
+      <h1>Visualisasi Komoditas Unggulan</h1>
+      <p>Pilih komoditas dan tahun untuk melihat titik-titik produksi di peta</p>
+    </div>
+  </section>
+
+  <section class="map-page">
+    <div class="container">
+      <div class="filter-panel">
+        <form id="mapFilterForm">
+          <div class="filter-group">
+            <label for="komoditasSelect">Pilih Komoditas</label>
+            <select id="komoditasSelect">
+              <option value="">Semua Komoditas</option>
+              <option value="Padi" selected>Padi</option>
+              <option value="Jagung">Jagung</option>
+              <option value="Kedelai">Kedelai</option>
+              <option value="Kacang Hijau">Kacang Hijau</option>
+              <option value="Tebu">Tebu</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="tahunSelect">Pilih Tahun</label>
+            <select id="tahunSelect">
+              <option value="2025" selected>2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Cari</button>
+        </form>
+        <p id="filterInfo" class="filter-info">Menampilkan produksi Padi tahun 2025.</p>
+      </div>
+
+      <div class="map-container">
+        <div class="map-wrapper">
+          <div id="leafletMap"></div>
+          <div class="map-legend" id="mapLegend">
+            <!-- Legend akan di-generate oleh JavaScript -->
+          </div>
+          <div class="attribution">
+            © OpenStreetMap contributors
+          </div>
+        </div>
+
+        <div class="info-panel">
+          <div id="infoContent" class="info-content">
+            <div class="no-data">
+              <div class="no-data-icon">📍</div>
+              <p>Klik pada titik kecamatan di peta untuk melihat detail informasi produksi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Mandala Tani AI</h3>
+          <p>Platform AI untuk optimalisasi rantai pasok pertanian di Kabupaten Sidoarjo.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Tautan</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="peta.html">Peta</a></li>
+            <li><a href="penyuluh-kecamatan/dashboard.html">Penyuluh Kecamatan</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Kontak</h4>
+          <p>Dinas Pertanian Kabupaten Sidoarjo</p>
+          <p>Email: info@mandalatani.go.id</p>
+          <p>Telp: (031) 1234567</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Mandala Tani AI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Data kecamatan dengan koordinat titik pusat dan produksi
+    const kecamatanData = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Buduran",
+            "color": "#0d8f52",
+            "luasLahan": 1013,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 7692.01, "2024": 7500, "2023": 7300 },
+              "Jagung": { "2025": 980, "2024": 950, "2023": 920 },
+              "Kedelai": { "2025": 650, "2024": 630, "2023": 610 },
+              "Kacang Hijau": { "2025": 380, "2024": 360, "2023": 350 },
+              "Tebu": { "2025": 2800, "2024": 2700, "2023": 2600 }
+            },
+            "center": [-7.435, 112.665]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Sidoarjo",
+            "color": "#0d8f52",
+            "luasLahan": 1250,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 6500, "2024": 6300, "2023": 6100 },
+              "Jagung": { "2025": 1200, "2024": 1150, "2023": 1100 },
+              "Kedelai": { "2025": 800, "2024": 780, "2023": 750 },
+              "Kacang Hijau": { "2025": 400, "2024": 390, "2023": 380 },
+              "Tebu": { "2025": 2650, "2024": 2580, "2023": 2510 }
+            },
+            "center": [-7.385, 112.615]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Taman",
+            "color": "#0d8f52",
+            "luasLahan": 780,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 3200, "2024": 3120, "2023": 3040 },
+              "Jagung": { "2025": 620, "2024": 605, "2023": 590 },
+              "Kedelai": { "2025": 380, "2024": 370, "2023": 360 },
+              "Kacang Hijau": { "2025": 210, "2024": 205, "2023": 200 },
+              "Tebu": { "2025": 1400, "2024": 1365, "2023": 1330 }
+            },
+            "center": [-7.370, 112.695]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Sukodono",
+            "color": "#0d8f52",
+            "luasLahan": 950,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 4100, "2024": 4000, "2023": 3900 },
+              "Jagung": { "2025": 820, "2024": 800, "2023": 780 },
+              "Kedelai": { "2025": 510, "2024": 500, "2023": 490 },
+              "Kacang Hijau": { "2025": 290, "2024": 283, "2023": 276 },
+              "Tebu": { "2025": 1950, "2024": 1900, "2023": 1850 }
+            },
+            "center": [-7.420, 112.690]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Candi",
+            "color": "#0d8f52",
+            "luasLahan": 1420,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 7200, "2024": 7000, "2023": 6800 },
+              "Jagung": { "2025": 1450, "2024": 1400, "2023": 1350 },
+              "Kedelai": { "2025": 920, "2024": 900, "2023": 880 },
+              "Kacang Hijau": { "2025": 520, "2024": 500, "2023": 480 },
+              "Tebu": { "2025": 3600, "2024": 3500, "2023": 3400 }
+            },
+            "center": [-7.400, 112.600]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Tulangan",
+            "color": "#0d8f52",
+            "luasLahan": 1380,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 6800, "2024": 6600, "2023": 6400 },
+              "Jagung": { "2025": 1350, "2024": 1310, "2023": 1270 },
+              "Kedelai": { "2025": 880, "2024": 860, "2023": 840 },
+              "Kacang Hijau": { "2025": 490, "2024": 475, "2023": 460 },
+              "Tebu": { "2025": 3400, "2024": 3300, "2023": 3200 }
+            },
+            "center": [-7.483, 112.675]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Gedangan",
+            "color": "#0d8f52",
+            "luasLahan": 870,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 3600, "2024": 3510, "2023": 3420 },
+              "Jagung": { "2025": 680, "2024": 665, "2023": 650 },
+              "Kedelai": { "2025": 410, "2024": 400, "2023": 390 },
+              "Kacang Hijau": { "2025": 230, "2024": 225, "2023": 220 },
+              "Tebu": { "2025": 1550, "2024": 1515, "2023": 1480 }
+            },
+            "center": [-7.398, 112.718]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Sedati",
+            "color": "#0d8f52",
+            "luasLahan": 720,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 2900, "2024": 2830, "2023": 2760 },
+              "Jagung": { "2025": 550, "2024": 538, "2023": 526 },
+              "Kedelai": { "2025": 340, "2024": 332, "2023": 324 },
+              "Kacang Hijau": { "2025": 180, "2024": 176, "2023": 172 },
+              "Tebu": { "2025": 1200, "2024": 1170, "2023": 1140 }
+            },
+            "center": [-7.383, 112.753]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Waru",
+            "color": "#0d8f52",
+            "luasLahan": 850,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 3400, "2024": 3315, "2023": 3230 },
+              "Jagung": { "2025": 650, "2024": 635, "2023": 620 },
+              "Kedelai": { "2025": 400, "2024": 390, "2023": 380 },
+              "Kacang Hijau": { "2025": 220, "2024": 215, "2023": 210 },
+              "Tebu": { "2025": 1480, "2024": 1445, "2023": 1410 }
+            },
+            "center": [-7.358, 112.718]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "name": "Porong",
+            "color": "#0d8f52",
+            "luasLahan": 980,
+            "kabupaten": "Sidoarjo",
+            "produksi": {
+              "Padi": { "2025": 4200, "2024": 4100, "2023": 4000 },
+              "Jagung": { "2025": 850, "2024": 820, "2023": 800 },
+              "Kedelai": { "2025": 480, "2024": 460, "2023": 450 },
+              "Kacang Hijau": { "2025": 280, "2024": 270, "2023": 260 },
+              "Tebu": { "2025": 1900, "2024": 1850, "2023": 1800 }
+            },
+            "center": [-7.533, 112.743]
+          }
+        }
+      ]
+    };
+
+    // Inisialisasi variabel global
+    let map;
+    let currentKomoditas = 'Padi';
+    let currentTahun = '2025';
+    let chartInstance = null;
+    let currentChartYear = '2025';
+    let markers = [];
+    let selectedMarker = null;
+
+    // Fungsi untuk inisialisasi peta
+    function initMap() {
+      // Initialize map dengan view yang tepat untuk Sidoarjo
+      map = L.map('leafletMap', {
+        zoomControl: true,
+        attributionControl: false
+      }).setView([-7.44, 112.65], 11);
+
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
+      }).addTo(map);
+    }
+
+    // Function to show region info
+    function showRegionInfo(properties) {
+      const komoditas = currentKomoditas || 'Padi';
+      const produksiData = properties.produksi[komoditas];
+      const produksiSekarang = produksiData[currentTahun];
+      
+      let infoHTML = `
+        <h1>Mandala Tani AI</h1>
+        <h2>${properties.name}</h2>
+        
+        <div class="komoditas-info">
+          <h3>Komoditas ${komoditas}</h3>
+          <div class="produksi-value">${produksiSekarang.toLocaleString('id-ID', {minimumFractionDigits: 2})} ton</div>
+          <div class="komoditas-detail">
+            <div class="detail-item">
+              <span class="detail-label">Tahun</span>
+              <span class="detail-value">${currentTahun}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Luas Lahan</span>
+              <span class="detail-value">${properties.luasLahan.toLocaleString()} ha</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="info-grid">
+          <div class="info-card">
+            <h3>Informasi Wilayah</h3>
+            <div class="info-row">
+              <span class="info-label">Kabupaten/Kota</span>
+              <span class="info-value">${properties.kabupaten}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Kecamatan</span>
+              <span class="info-value">${properties.name}</span>
+            </div>
+          </div>
+          
+          <div class="info-card">
+            <h3>Komoditas ${komoditas}</h3>
+            <div class="info-row">
+              <span class="info-label">Luas Lahan</span>
+              <span class="info-value">${properties.luasLahan.toLocaleString()} ha</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Total Produksi</span>
+              <span class="info-value">${produksiSekarang.toLocaleString('id-ID', {minimumFractionDigits: 2})} ton</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Produktivitas</span>
+              <span class="info-value">${(produksiSekarang / properties.luasLahan).toFixed(2)} ton/ha</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chart-container">
+          <div class="chart-title">
+            <span>Grafik Produksi</span>
+            <div class="chart-years">
+              <button class="year-btn ${currentChartYear === '2025' ? 'active' : ''}" data-year="2025">2025</button>
+              <button class="year-btn ${currentChartYear === '2024' ? 'active' : ''}" data-year="2024">2024</button>
+              <button class="year-btn ${currentChartYear === '2023' ? 'active' : ''}" data-year="2023">2023</button>
+            </div>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="topProduksiChart" class="chart-canvas"></canvas>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('infoContent').innerHTML = infoHTML;
+      
+      // Setup tahun button events
+      document.querySelectorAll('.year-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          currentChartYear = this.getAttribute('data-year');
+          document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          createTopProduksiChart(properties, komoditas, currentChartYear);
+        });
+      });
+      
+      // Create chart
+      setTimeout(() => {
+        createTopProduksiChart(properties, komoditas, currentChartYear);
+      }, 100);
+    }
+
+    // Create top produksi chart
+    function createTopProduksiChart(properties, komoditas, year) {
+      const canvas = document.getElementById('topProduksiChart');
+      if (!canvas) return;
+      
+      const ctx = canvas.getContext('2d');
+      
+      // Buat data top produksi dari semua kecamatan
+      const topProduksiData = kecamatanData.features
+        .map(f => ({
+          name: f.properties.name,
+          value: f.properties.produksi[komoditas][year] || 0
+        }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 5);
+      
+      const labels = topProduksiData.map(item => item.name);
+      const data = topProduksiData.map(item => item.value);
+      const maxValue = Math.max(...data);
+      
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+      
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: labels.map((label, index) => {
+              // Berikan warna khusus untuk kecamatan yang sedang dilihat
+              if (label === properties.name) {
+                return '#ef4444'; // Merah untuk kecamatan yang dipilih
+              }
+              return '#0d8f52'; // Hijau untuk kecamatan lain
+            }),
+            borderWidth: 1,
+            borderColor: '#fff',
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: 'Top 5 Kecamatan Memproduksi',
+              font: {
+                size: 12,
+                weight: '600'
+              },
+              color: '#333',
+              padding: {
+                bottom: 10
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return `${context.label}: ${context.raw.toLocaleString('id-ID', {minimumFractionDigits: 2})} ton`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              },
+              ticks: {
+                font: {
+                  size: 10
+                },
+                callback: function(value) {
+                  if (value >= 1000) {
+                    return (value / 1000).toFixed(0) + 'k';
+                  }
+                  return value;
+                },
+                stepSize: maxValue > 8000 ? 2000 : maxValue > 4000 ? 1000 : 500
+              },
+              title: {
+                display: true,
+                text: 'Ton',
+                font: {
+                  size: 10
+                }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                font: {
+                  size: 10
+                },
+                maxRotation: 45,
+                minRotation: 45
+              }
+            }
+          },
+          layout: {
+            padding: {
+              top: 10,
+              right: 10,
+              bottom: 10,
+              left: 10
+            }
+          }
+        }
+      });
+    }
+
+    // Fungsi untuk membuat marker custom
+    function createCustomMarker(feature) {
+      const marker = L.divIcon({
+        className: 'custom-marker',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+        popupAnchor: [0, -12]
+      });
+      
+      return marker;
+    }
+
+    // Fungsi untuk membuat legenda peta
+    function createLegend() {
+      const legendContainer = document.getElementById('mapLegend');
+      let legendHTML = '<h4>Kecamatan di Sidoarjo</h4>';
+      
+      // Filter kecamatan yang memproduksi komoditas terpilih
+      const kecamatanProduktif = kecamatanData.features.filter(feature => {
+        if (!currentKomoditas) return true; // Tampilkan semua jika tidak ada komoditas dipilih
+        
+        const produksi = feature.properties.produksi[currentKomoditas][currentTahun];
+        return produksi > 0;
+      });
+      
+      kecamatanProduktif.forEach((feature, index) => {
+        const name = feature.properties.name;
+        const produksi = feature.properties.produksi[currentKomoditas || 'Padi'][currentTahun];
+        
+        legendHTML += `
+          <div class="legend-item" data-kecamatan="${name}">
+            <span class="legend-color" style="background: #0d8f52"></span>
+            <span class="legend-text">${name}</span>
+            <span style="margin-left: auto; font-size: 11px; color: #666;">${produksi.toLocaleString('id-ID', {minimumFractionDigits: 2})}t</span>
+          </div>
+        `;
+      });
+      
+      legendContainer.innerHTML = legendHTML;
+      
+      // Tambahkan event listener untuk item legenda
+      document.querySelectorAll('.legend-item').forEach(item => {
+        item.addEventListener('click', function() {
+          const kecamatanName = this.getAttribute('data-kecamatan');
+          const feature = kecamatanData.features.find(f => f.properties.name === kecamatanName);
+          
+          if (feature) {
+            showRegionInfo(feature.properties);
+            
+            // Temukan marker yang sesuai dan pindahkan view ke sana
+            markers.forEach(marker => {
+              if (marker.feature.properties.name === kecamatanName) {
+                map.setView(marker.getLatLng(), 13);
+                
+                // Highlight marker yang dipilih
+                if (selectedMarker) {
+                  selectedMarker.getElement().classList.remove('marker-selected');
+                }
+                marker.getElement().classList.add('marker-selected');
+                selectedMarker = marker;
+              }
+            });
+          }
+        });
+      });
+    }
+
+    // Function to load map data dengan marker
+    function loadMapData() {
+      // Hapus semua marker sebelumnya
+      markers.forEach(marker => map.removeLayer(marker));
+      markers = [];
+      
+      // Reset selected marker
+      selectedMarker = null;
+      
+      // Filter kecamatan berdasarkan komoditas dan tahun
+      kecamatanData.features.forEach(feature => {
+        const props = feature.properties;
+        
+        // Cek apakah kecamatan ini memproduksi komoditas yang dipilih
+        let shouldShow = true;
+        if (currentKomoditas) {
+          const produksi = props.produksi[currentKomoditas][currentTahun];
+          shouldShow = produksi > 0;
+        }
+        
+        if (shouldShow) {
+          // Buat marker di titik pusat kecamatan
+          const marker = L.marker(props.center, {
+            icon: createCustomMarker(feature)
+          }).addTo(map);
+          
+          // Simpan reference ke feature
+          marker.feature = feature;
+          
+          // Tambahkan event listener
+          marker.on('click', function() {
+            showRegionInfo(props);
+            
+            // Highlight marker yang dipilih
+            if (selectedMarker) {
+              selectedMarker.getElement().classList.remove('marker-selected');
+            }
+            marker.getElement().classList.add('marker-selected');
+            selectedMarker = marker;
+            
+            // Zoom ke marker
+            map.setView(marker.getLatLng(), 13);
+          });
+          
+          // Tooltip dengan informasi produksi
+          const komoditas = currentKomoditas || 'Padi';
+          const produksi = props.produksi[komoditas][currentTahun];
+          
+          marker.bindTooltip(`
+            <strong>${props.name}</strong><br>
+            ${komoditas}: ${produksi.toLocaleString('id-ID', {minimumFractionDigits: 2})} ton
+          `, {
+            direction: 'top',
+            offset: [0, -10]
+          });
+          
+          // Tambahkan ke array markers
+          markers.push(marker);
+        }
+      });
+      
+      // Update legenda
+      createLegend();
+      
+      // Reset info panel jika tidak ada marker yang dipilih
+      const infoContent = document.getElementById('infoContent');
+      if (!infoContent.querySelector('.komoditas-info')) {
+        infoContent.innerHTML = `
+          <div class="no-data">
+            <div class="no-data-icon">📍</div>
+            <p>Klik pada titik kecamatan di peta untuk melihat detail informasi produksi</p>
+            <p style="margin-top: 10px; font-size: 13px;">Atau klik pada nama kecamatan di legenda peta</p>
+          </div>
+        `;
+      }
+      
+      // Atur view peta untuk menampilkan semua marker
+      if (markers.length > 0) {
+        const markerGroup = L.featureGroup(markers);
+        map.fitBounds(markerGroup.getBounds().pad(0.1));
+      }
+    }
+
+    // Handle form submission
+    document.getElementById('mapFilterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      currentKomoditas = document.getElementById('komoditasSelect').value;
+      currentTahun = document.getElementById('tahunSelect').value;
+      
+      const komoditasText = currentKomoditas || 'seluruh komoditas';
+      document.getElementById('filterInfo').textContent = 
+        `Menampilkan produksi ${komoditasText} tahun ${currentTahun}.`;
+      
+      loadMapData();
+    });
+
+    // Inisialisasi saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      initMap();
+      loadMapData();
+    });
+  </script>
+</body>
+</html>

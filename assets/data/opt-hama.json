@@ -1,0 +1,223 @@
+{
+  "opt_database": {
+    "wereng_coklat": {
+      "nama": "Wereng Coklat",
+      "nama_latin": "Nilaparvata lugens",
+      "icon": "🦗",
+      "tanaman": ["padi"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 32 },
+        "kelembaban": { "min": 70, "max": 100 },
+        "curahHujan": { "min": 150, "max": 999 }
+      },
+      "gejala": "Daun menguning, tanaman kerdil, hopperburn",
+      "pencegahan": "Tanam varietas tahan wereng, gunakan musuh alami (laba-laba, kepik)",
+      "pengendalian": "Semprot insektisida bila populasi melebihi ambang, pergiliran tanaman",
+      "tingkat_risiko": "tinggi"
+    },
+    "penggerek_batang_padi": {
+      "nama": "Penggerek Batang Padi",
+      "nama_latin": "Scirpophaga incertulas",
+      "icon": "🐛",
+      "tanaman": ["padi"],
+      "kondisi": {
+        "suhu": { "min": 22, "max": 30 },
+        "kelembaban": { "min": 75, "max": 100 },
+        "ph": { "min": 5, "max": 7 }
+      },
+      "gejala": "Anakan mati (sundep), malai putih (beluk)",
+      "pencegahan": "Sanitasi lahan, pergiliran tanaman, tanam serempak",
+      "pengendalian": "Pemakaian kartap atau karbofuran, pemangkasan malai hampa",
+      "tingkat_risiko": "sedang"
+    },
+    "belalang": {
+      "nama": "Belalang",
+      "nama_latin": "Oxya spp",
+      "icon": "🦗",
+      "tanaman": ["padi", "jagung", "kedelai"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 35 },
+        "kelembaban": { "min": 60, "max": 80 },
+        "musim": [2]
+      },
+      "gejala": "Daun berlubang dan tidak beraturan, pertumbuhan terhambat",
+      "pencegahan": "Monitoring rutin, pengendalian mekanis (dipungut)",
+      "pengendalian": "Penyemprotan insektisida, gropyokan massal",
+      "tingkat_risiko": "sedang"
+    },
+    "ulat_grayak": {
+      "nama": "Ulat Grayak",
+      "nama_latin": "Spodoptera litura",
+      "icon": "🐛",
+      "tanaman": ["jagung", "kedelai", "kacangHijau"],
+      "kondisi": {
+        "suhu": { "min": 24, "max": 32 },
+        "kelembaban": { "min": 65, "max": 85 },
+        "musim": [2, 3]
+      },
+      "gejala": "Daun berlubang, hanya tersisa tulang daun, kotoran hitam",
+      "pencegahan": "Tanam varietas tahan, gunakan perangkap feromon",
+      "pengendalian": "Semprot dengan Bacillus thuringiensis atau insektisida kimia",
+      "tingkat_risiko": "tinggi"
+    },
+    "lalat_bibit": {
+      "nama": "Lalat Bibit",
+      "nama_latin": "Atherigona exigua",
+      "icon": "🪰",
+      "tanaman": ["jagung"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 30 },
+        "kelembaban": { "min": 70, "max": 90 },
+        "curahHujan": { "min": 100, "max": 999 }
+      },
+      "gejala": "Daun tengah menguning dan mati, pertumbuhan terhambat",
+      "pencegahan": "Perlakuan benih dengan insektisida, tanam dalam-dalam",
+      "pengendalian": "Cabut dan musnahkan tanaman terserang, aplikasi karbofuran",
+      "tingkat_risiko": "sedang"
+    },
+    "penggerek_polong": {
+      "nama": "Penggerek Polong",
+      "nama_latin": "Maruca testulalis",
+      "icon": "🐛",
+      "tanaman": ["kedelai", "kacangHijau"],
+      "kondisi": {
+        "suhu": { "min": 23, "max": 30 },
+        "kelembaban": { "min": 65, "max": 85 }
+      },
+      "gejala": "Polong berlubang, biji rusak dan keropos",
+      "pencegahan": "Tanam varietas tahan, monitoring saat pembungaan",
+      "pengendalian": "Semprot insektisida saat awal pembungaan hingga pengisian polong",
+      "tingkat_risiko": "tinggi"
+    },
+    "kutu_daun": {
+      "nama": "Kutu Daun (Aphid)",
+      "nama_latin": "Aphis glycines",
+      "icon": "🦟",
+      "tanaman": ["kedelai", "kacangHijau", "jagung"],
+      "kondisi": {
+        "suhu": { "min": 20, "max": 28 },
+        "kelembaban": { "min": 60, "max": 80 }
+      },
+      "gejala": "Daun menggulung, menguning, tanaman kerdil, embun madu",
+      "pencegahan": "Gunakan mulsa reflektif, lepas musuh alami (lady beetle)",
+      "pengendalian": "Semprot dengan insektisida sistemik atau minyak nabati",
+      "tingkat_risiko": "sedang"
+    },
+    "penggerek_batang_tebu": {
+      "nama": "Penggerek Batang Tebu",
+      "nama_latin": "Chilo sacchariphagus",
+      "icon": "🪱",
+      "tanaman": ["tebu"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 32 },
+        "kelembaban": { "min": 70, "max": 90 }
+      },
+      "gejala": "Batang berlubang, tanaman layu dan mati, penurunan rendemen",
+      "pencegahan": "Gunakan bibit sehat, sanitasi lahan, tanam varietas tahan",
+      "pengendalian": "Roguing tanaman terserang, aplikasi insektisida sistemik",
+      "tingkat_risiko": "tinggi"
+    },
+    "tikus_sawah": {
+      "nama": "Tikus Sawah",
+      "nama_latin": "Rattus argentiventer",
+      "icon": "🐀",
+      "tanaman": ["padi", "jagung"],
+      "kondisi": {
+        "curahHujan": { "min": 150, "max": 999 },
+        "ketinggian": { "min": 0, "max": 500 }
+      },
+      "gejala": "Tanaman roboh, batang terpotong, bulir padi hilang",
+      "pencegahan": "Bubu perangkap, TBS (Trap Barrier System)",
+      "pengendalian": "Gropyokan massal, rodentisida umpan",
+      "tingkat_risiko": "tinggi"
+    },
+    "penyakit_blast": {
+      "nama": "Penyakit Blast/Blas",
+      "nama_latin": "Pyricularia oryzae",
+      "icon": "🦠",
+      "tanaman": ["padi"],
+      "kondisi": {
+        "suhu": { "min": 22, "max": 28 },
+        "kelembaban": { "min": 85, "max": 100 },
+        "curahHujan": { "min": 200, "max": 999 }
+      },
+      "gejala": "Bercak coklat berbentuk belah ketupat pada daun, leher malai patah",
+      "pencegahan": "Tanam varietas tahan, kelola air dengan baik, pemupukan berimbang",
+      "pengendalian": "Semprot fungisida sistemik (trisiklazol, isoprotiolan)",
+      "tingkat_risiko": "tinggi"
+    },
+    "hawar_daun": {
+      "nama": "Hawar Daun Bakteri",
+      "nama_latin": "Xanthomonas oryzae",
+      "icon": "🦠",
+      "tanaman": ["padi"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 34 },
+        "kelembaban": { "min": 80, "max": 100 },
+        "curahHujan": { "min": 150, "max": 999 }
+      },
+      "gejala": "Garis memanjang kuning-coklat di tepi daun, daun mengering",
+      "pencegahan": "Tanam varietas tahan, hindari pemupukan N berlebih",
+      "pengendalian": "Semprot bakterisida atau antibiotik tertentu",
+      "tingkat_risiko": "sedang"
+    },
+    "tungro": {
+      "nama": "Virus Tungro",
+      "nama_latin": "Rice tungro bacilliform virus",
+      "icon": "🦠",
+      "tanaman": ["padi"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 32 },
+        "kelembaban": { "min": 70, "max": 100 }
+      },
+      "gejala": "Daun kuning-oranye, tanaman kerdil, anakan berkurang",
+      "pencegahan": "Tanam varietas tahan, kendalikan wereng hijau sebagai vektor",
+      "pengendalian": "Cabut dan musnahkan tanaman terserang, kendalikan wereng",
+      "tingkat_risiko": "tinggi"
+    },
+    "bulai_jagung": {
+      "nama": "Penyakit Bulai",
+      "nama_latin": "Peronosclerospora maydis",
+      "icon": "🦠",
+      "tanaman": ["jagung"],
+      "kondisi": {
+        "suhu": { "min": 20, "max": 28 },
+        "kelembaban": { "min": 85, "max": 100 },
+        "curahHujan": { "min": 150, "max": 999 }
+      },
+      "gejala": "Daun klorosis bergaris, pertumbuhan kerdil, tongkol tidak terbentuk",
+      "pencegahan": "Tanam varietas tahan, perlakuan benih dengan fungisida",
+      "pengendalian": "Roguing tanaman sakit, semprot metalaksil",
+      "tingkat_risiko": "tinggi"
+    },
+    "karat_daun_kedelai": {
+      "nama": "Karat Daun",
+      "nama_latin": "Phakopsora pachyrhizi",
+      "icon": "🦠",
+      "tanaman": ["kedelai"],
+      "kondisi": {
+        "suhu": { "min": 20, "max": 28 },
+        "kelembaban": { "min": 75, "max": 100 },
+        "curahHujan": { "min": 100, "max": 999 }
+      },
+      "gejala": "Bintik coklat kemerahan pada daun, daun rontok dini",
+      "pencegahan": "Tanam varietas tahan, rotasi tanaman",
+      "pengendalian": "Semprot fungisida triazol atau strobilurin",
+      "tingkat_risiko": "tinggi"
+    },
+    "lalat_buah": {
+      "nama": "Lalat Buah",
+      "nama_latin": "Bactrocera spp",
+      "icon": "🪰",
+      "tanaman": ["cabai", "tomat", "terong"],
+      "kondisi": {
+        "suhu": { "min": 25, "max": 32 },
+        "kelembaban": { "min": 70, "max": 90 }
+      },
+      "gejala": "Buah berlubang, membusuk, larva di dalam buah",
+      "pencegahan": "Gunakan perangkap metil eugenol, pembrongsongan buah",
+      "pengendalian": "Sanitasi kebun, semprot insektisida saat pembungaan",
+      "tingkat_risiko": "tinggi"
+    }
+  }
+}

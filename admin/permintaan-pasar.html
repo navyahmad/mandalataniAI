@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Permintaan Pasar - Mandala Tani AI</title>
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .market-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+        }
+        .price-trend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .trend-up { color: #27ae60; }
+        .trend-down { color: #e74c3c; }
+        .forecast-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="sidebar">
+           <div class="sidebar-header">
+    <img src="../assets/img/logo-mandala.png"
+         alt="Logo Mandala Tani AI"
+         class="logo-img">
+    <span class="logo-text">Mandala Tani AI</span>
+</div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">👨‍💼</div>
+                <div class="user-info">
+                    <div class="user-name">Admin Dinas</div>
+                    <div class="user-role">Kabupaten Sidoarjo</div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+                <a href="rekom-tanam.html" class="nav-item"><span class="nav-icon">🌱</span><span class="nav-text">Rekomendasi Tanam</span></a>
+                <a href="simulasi-tanam.html" class="nav-item"><span class="nav-icon">🔬</span><span class="nav-text">Simulasi Tanam</span></a>
+                <a href="prediksi-air-pupuk.html" class="nav-item"><span class="nav-icon">💧</span><span class="nav-text">Prediksi Air & Pupuk</span></a>
+                <!-- <a href="stok-pupuk.html" class="nav-item"><span class="nav-icon">📦</span><span class="nav-text">Manajemen Stok Pupuk</span></a> -->
+                <a href="permintaan-pasar.html" class="nav-item active"><span class="nav-icon">📈</span><span class="nav-text">Prediksi Pasar</span></a>
+                <a href="prediksi-opt.html" class="nav-item"><span class="nav-icon">🐛</span><span class="nav-text">Prediksi OPT</span></a>
+                <a href="prediksi-banjir.html" class="nav-item"><span class="nav-icon">🌊</span><span class="nav-text">Prediksi Banjir</span></a>
+                <a href="simulasi-hasil-panen.html" class="nav-item"><span class="nav-icon">🌾</span><span class="nav-text">Simulasi Panen</span></a>
+                <a href="monitoring-panen.html" class="nav-item"><span class="nav-icon">📋</span><span class="nav-text">Monitoring Panen</span></a>
+                <a href="kelola-user.html" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Kelola User</span></a>
+                <a href="blog.html" class="nav-item"><span class="nav-icon">📝</span><span class="nav-text">Kelola Blog</span></a>
+                <div class="nav-divider"></div>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🏠</span><span class="nav-text">Lihat Website</span></a>
+                <a href="../index.html" class="nav-item"><span class="nav-icon">🚪</span><span class="nav-text">Logout</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <button class="toggle-sidebar" id="toggleSidebar">☰</button>
+                <h1 class="page-title">📈 Prediksi Permintaan Pasar</h1>
+                <div class="top-bar-actions">
+                    <button class="btn-icon">🔔<span class="badge">3</span></button>
+                    <button class="btn-icon">⚙️</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div class="info-box">
+                    <div class="info-icon">🤖</div>
+                    <div class="info-content">
+                        <h3>AI Market Intelligence</h3>
+                        <p>Prediksi permintaan pasar dan ketersediaan pangan menggunakan analisis tren historis, data ekonomi, dan algoritma machine learning untuk membantu perencanaan produksi yang lebih akurat.</p>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2>💰 Harga Komoditas Real-time</h2>
+                        <select id="periodFilter" class="select-filter" onchange="updateCharts()">
+                            <option value="7">7 Hari Terakhir</option>
+                            <option value="30">30 Hari Terakhir</option>
+                            <option value="90">3 Bulan Terakhir</option>
+                        </select>
+                    </div>
+
+                    <div class="market-grid" id="marketGrid"></div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📊 Tren Harga & Permintaan</h2>
+                    <canvas id="chartHarga" style="max-height: 400px;"></canvas>
+                </div>
+
+                <div class="section-card">
+                    <h2>🔮 Prediksi Ketersediaan Pangan</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Komoditas</th>
+                                    <th>Stok Saat Ini (Ton)</th>
+                                    <th>Konsumsi/Bulan (Ton)</th>
+                                    <th>Prediksi Kebutuhan (Ton)</th>
+                                    <th>Status Ketersediaan</th>
+                                    <th>Rekomendasi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablePrediksiBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>📍 Demand per Kecamatan</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Kecamatan</th>
+                                    <th>Populasi</th>
+                                    <th>Demand Padi (Ton)</th>
+                                    <th>Demand Jagung (Ton)</th>
+                                    <th>Demand Kedelai (Ton)</th>
+                                    <th>Total Demand</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableDemandBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>💡 Analisis & Rekomendasi</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                        <div style="padding: 1.5rem; background: #e8f5e9; border-radius: 8px; border-left: 4px solid #27ae60;">
+                            <h4 style="color: #1b5e20; margin-bottom: 1rem;">✅ Surplus</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li><strong>Padi:</strong> Surplus 2,450 ton (20% lebih)</li>
+                                <li>Rekomendasi: Export ke kabupaten tetangga</li>
+                                <li>Potensi revenue: Rp 12,5 miliar</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #fff3e0; border-radius: 8px; border-left: 4px solid #f39c12;">
+                            <h4 style="color: #e65100; margin-bottom: 1rem;">⚠️ Defisit</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li><strong>Kedelai:</strong> Defisit 850 ton (15% kurang)</li>
+                                <li>Rekomendasi: Import atau tingkatkan produksi</li>
+                                <li>Estimasi biaya: Rp 8,5 miliar</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #e3f2fd; border-radius: 8px; border-left: 4px solid #1976d2;">
+                            <h4 style="color: #0d47a1; margin-bottom: 1rem;">📈 Tren Harga</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Harga padi meningkat 8% bulan ini</li>
+                                <li>Prediksi stabil hingga akhir tahun</li>
+                                <li>Timing penjualan optimal: 2 minggu lagi</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 1.5rem; background: #f3e5f5; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                            <h4 style="color: #4a148c; margin-bottom: 1rem;">🎯 Strategi</h4>
+                            <ul style="color: #555; line-height: 1.8;">
+                                <li>Fokus produksi padi dan tebu (margin tinggi)</li>
+                                <li>Diversifikasi ke kacang hijau (demand naik)</li>
+                                <li>Koordinasi dengan pasar induk regional</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/prediksi-pasar.js"></script>
+</body>
+</html>
